@@ -1,0 +1,95 @@
+.container--register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f8;
+}
+
+.form--register {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+}
+
+.link--login {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 14px;
+}
+
+.link--login a {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link--login a:hover {
+    color: #2980b9;
+}
+
+.form--register h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #333;
+}
+
+.form--register h2 {
+    font-size: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: #555;
+}
+
+.form--register fieldset {
+    margin-bottom: 20px;
+}
+
+.form--register label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #444;
+    font-size: 15px;
+}
+
+.form--register input[type="text"],
+.form--register input[type="email"],
+.form--register input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e2e2;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #f7f7f7;
+    transition: border-color 0.3s ease;
+}
+
+.form--register input[type="text"]:focus,
+.form--register input[type="email"]:focus,
+.form--register input[type="password"]:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+.form--register button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.form--register button[type="submit"]:hover {
+    background-color: #2980b9;
+}

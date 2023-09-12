@@ -1,125 +1,123 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export const Register = (props) => {
-    const [user, setUser] = useState({
+export const Register = () => {
+    const [userData, setUserData] = useState({
         email: "",
-        first_name: "",
-        last_name: "",
         username: "",
         password: "",
-        isStaff: false,
+        first_name: "",
+        last_name: "",
+        bio: "",
+        image: "",
+        has_cats: false,
+        has_dogs: false,
+        has_children: false
     });
-
-    let navigate = useNavigate();
-
-    const registerNewUser = () => {
-        return fetch("http://localhost:8000/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-        })
-            .then((res) => res.json())
-            .then((createdUser) => {
-                if (createdUser.hasOwnProperty("token")) {
-                    localStorage.setItem("kitty_user", createdUser.token);
-                    navigate("/");
-                }
-            });
-    };
+    const navigate = useNavigate();
 
     const handleRegister = (e) => {
         e.preventDefault();
-        registerNewUser();
+
+        fetch(`http://localhost:8000/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        })
+        .then(res => res.json())
+        .then(response => {
+            if (response.token) {
+                localStorage.setItem("kitty_user", response.token);
+                navigate("/login");
+            } else {
+                window.alert(response.message);
+            }
+        });
     };
 
-    const updateUser = (evt) => {
-        const copy = { ...user };
-        copy[evt.target.id] = evt.target.value;
-        setUser(copy);
+    const handleChange = (e) => {
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        setUserData({
+            ...userData,
+            [e.target.name]: value
+        });
     };
 
     return (
-        <main style={{ textAlign: "center" }}>
-            <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">
-                    Please Register for Music Kitty
-                </h1>
-                <fieldset>
-                    <label htmlFor="first_name">First Name</label>
-                    <input
-                        onChange={updateUser}
-                        type="text"
-                        id="first_name"
-                        className="form-control"
-                        placeholder="Enter your first name"
-                        required
-                        autoFocus
-                    />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="last_name">Last Name</label>
-                    <input
-                        onChange={updateUser}
-                        type="text"
-                        id="last_name"
-                        className="form-control"
-                        placeholder="Enter your last name"
-                        required
-                    />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="username">Username</label>
-                    <input
-                        onChange={updateUser}
-                        type="text"
-                        id="username"
-                        className="form-control"
-                        placeholder="Enter a username"
-                        required
-                    />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="email">Email address</label>
-                    <input
-                        onChange={updateUser}
-                        type="email"
-                        id="email"
-                        className="form-control"
-                        placeholder="Email address"
-                        required
-                    />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="password">Password</label>
-                    <input
-                        onChange={updateUser}
-                        type="password"
-                        id="password"
-                        className="form-control"
-                        placeholder="Enter a password"
-                        required
-                    />
-                </fieldset>
-                <fieldset>
-                    <input
-                        onChange={(evt) => {
-                            const copy = { ...user };
-                            copy.isStaff = evt.target.checked;
-                            setUser(copy);
-                        }}
-                        type="checkbox"
-                        id="isStaff"
-                    />
-                    <label htmlFor="isStaff"> I am an employee </label>
-                </fieldset>
-                <fieldset>
-                    <button type="submit"> Register </button>
-                </fieldset>
-            </form>
+        <main className="container--register">
+            <section>
+                <form className="form--register" onSubmit={handleRegister}>
+                    <h1>Music Kitty</h1>
+                    <h2>Register</h2>
+
+                    <fieldset>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" name="email" required onChange={handleChange} />
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="username">Username</label>
+                        <input type="text" name="username" required onChange={handleChange} />
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="password">Password</label>
+                        <input type="password" name="password" required onChange={handleChange} />
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="first_name">First Name</label>
+                        <input type="text" name="first_name" required onChange={handleChange} />
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="last_name">Last Name</label>
+                        <input type="text" name="last_name" required onChange={handleChange} />
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="bio">Bio</label>
+                        <textarea name="bio" onChange={handleChange}></textarea>
+                    </fieldset>
+
+                    <fieldset>
+                        <label htmlFor="image">Profile Image URL</label>
+                        <input type="text" name="image" onChange={handleChange} />
+                    </fieldset>
+
+                    <fieldset>
+                        <label>
+                            <input type="checkbox" name="has_cats" onChange={handleChange} />
+                            Click here if you have a cat
+                        </label>
+                    </fieldset>
+
+                    <fieldset>
+                        <label>
+                            <input type="checkbox" name="has_dogs" onChange={handleChange} />
+                            Click here if you have a dog
+                        </label>
+                    </fieldset>
+
+                    <fieldset>
+                        <label>
+                            <input type="checkbox" name="has_children" onChange={handleChange} />
+                            Click here if you have a child
+                        </label>
+                    </fieldset>
+
+                    <fieldset>
+                        <button type="submit">
+                            Register
+                        </button>
+                    </fieldset>
+                </form>
+            </section>
+            <section className="link--login">
+                <Link to="/login">Already a member? Login</Link>
+            </section>
         </main>
-    );
-}
+    )
+};
