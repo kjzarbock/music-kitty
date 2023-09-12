@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 import "./Login.css"
 
 export const Login = () => {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate()
 
@@ -17,7 +17,7 @@ export const Login = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: email,
+                username: username, // changed from email to username
                 password: password
             })
         })
@@ -43,12 +43,12 @@ export const Login = () => {
                     <h1>Music Kitty</h1>
                     <h2>Please sign in</h2>
                     <fieldset>
-                        <label htmlFor="inputEmail"> Email address </label>
-                        <input type="email"
-                            value={email}
-                            onChange={evt => setEmail(evt.target.value)}
+                        <label htmlFor="inputUsername"> Username </label> 
+                        <input type="text" 
+                            value={username}
+                            onChange={evt => setUsername(evt.target.value)}
                             className="form-control"
-                            placeholder="Email address"
+                            placeholder="Username"   
                             required autoFocus />
                     </fieldset>
                     <fieldset>
