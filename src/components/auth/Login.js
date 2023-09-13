@@ -1,15 +1,14 @@
-import React, { useState } from "react"
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom"
-import "./Login.css"
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import "./Login.css";
 
 export const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleLogin = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         return fetch(`http://localhost:8000/login`, {
             method: "POST",
@@ -17,7 +16,7 @@ export const Login = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: username, // changed from email to username
+                username: username,
                 password: password
             })
         })
@@ -27,14 +26,19 @@ export const Login = () => {
                 localStorage.setItem("kitty_user", JSON.stringify({
                     token: response.token,
                     staff: response.staff
-                }))
+                }));
 
-                navigate("/")
+                // Check if the user is a staff member and navigate accordingly
+                if (response.staff) {
+                    navigate("/admin"); // Navigate to the admin dashboard or preferred route
+                } else {
+                    navigate("/");  // Navigate to the regular user homepage
+                }
             } else {
-                window.alert("Invalid login")
+                window.alert("Invalid login");
             }
-        })
-    }
+        });
+    };
 
     return (
         <main className="container--login">
@@ -44,21 +48,26 @@ export const Login = () => {
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputUsername"> Username </label> 
-                        <input type="text" 
+                        <input 
+                            type="text" 
                             value={username}
                             onChange={evt => setUsername(evt.target.value)}
                             className="form-control"
-                            placeholder="Username"   
-                            required autoFocus />
+                            placeholder="Username"
+                            required 
+                            autoFocus 
+                        />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputPassword"> Password </label>
-                        <input type="password"
+                        <input 
+                            type="password"
                             value={password}
                             onChange={evt => setPassword(evt.target.value)}
                             className="form-control"
                             placeholder="Password"
-                            required />
+                            required 
+                        />
                     </fieldset>
                     <fieldset>
                         <button type="submit">
@@ -71,5 +80,5 @@ export const Login = () => {
                 <Link to="/register">Not a member yet?</Link>
             </section>
         </main>
-    )
+    );
 }
