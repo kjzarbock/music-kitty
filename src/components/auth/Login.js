@@ -28,7 +28,7 @@ export const Login = () => {
                     token: response.token,
                     staff: response.staff
                 }))
-
+                console.log(`User is ${response.staff ? 'a staff member' : 'not a staff member'}.`);
                 navigate("/")
             } else {
                 window.alert("Invalid login")

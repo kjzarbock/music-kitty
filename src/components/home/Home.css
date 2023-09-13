@@ -1,0 +1,21 @@
+.home-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .image-container {
+    flex: 0 0 30%; /* Adjust the flex value to change the size of the image container */
+    margin-right: 20px;
+  }
+  
+  .image-container img {
+    width: 100%; /* Adjust the width value to resize the image */
+    height: auto;
+  }
+  
+  .text-container {
+    flex: 0 0 70%; /* Adjust the flex value to change the size of the text container */
+    margin-left: 10px;
+  }
+  
