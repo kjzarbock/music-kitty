@@ -36,3 +36,4 @@ export const getSingleLocation = (locationId) => {
     })
     .then(res => res.json());
 };
+

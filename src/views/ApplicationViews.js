@@ -5,6 +5,8 @@ import { Authorized } from "./Authorized";
 import { Home } from "../components/home/Home";
 import { LocationList } from "../components/locations/LocationList";
 import { LocationDetails } from "../components/locations/LocationDetails"; // Import the new component
+import { CatList } from "../components/cats/CatList";
+import { CatDetails } from "../components/cats/CatDetails";
 
 export const ApplicationViews = ({ token, setToken }) => {
     return (
@@ -17,8 +19,10 @@ export const ApplicationViews = ({ token, setToken }) => {
             <Authorized token={token}>
               <Routes>
                 <Route index element={<Home setToken={setToken} />} />
+				<Route path="/cats" element={<CatList setToken={setToken} />} />
                 <Route path="/locations" element={<LocationList setToken={setToken} />} />
                 <Route path="/locations/:locationId" element={<LocationDetails />} />
+				<Route path="/cats/:catId" element={<CatDetails setToken={setToken} />} />
               </Routes>
             </Authorized>
           } 

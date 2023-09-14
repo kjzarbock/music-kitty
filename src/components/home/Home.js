@@ -22,9 +22,9 @@ export const Home = () => {
       <div className="bottom-container">
         {/* Image Container */}
         <div className="image-container">
-          <a href="/">
+          
               <img src="https://i.imgur.com/9xAf1KU.jpg" alt="Music Kitty" />
-          </a>
+
         </div>
 
         {/* Coffee Design */}
