@@ -12,6 +12,7 @@ export const MusicKitty = () => {
   }
 
   return <>
+  
     <NavBar token={token} setToken={setToken} />
     <ApplicationViews token={token} setToken={setToken} />
   </>

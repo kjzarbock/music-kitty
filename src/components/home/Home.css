@@ -2,8 +2,8 @@
   width: 300px;
   height: 280px;
   position: absolute;
-  top: calc(50% - 140px);
-  left: calc(50% - 150px);
+  top: calc(70% - 140px);
+  left: calc(70% - 150px);
 }
 .coffee-header {
   width: 100%;
@@ -256,3 +256,57 @@
   background-color: #000;
 }
 
+.home-container {
+  display: flex;
+  flex: 1 0 30%;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-container {
+  margin-left: 20px;
+  margin-top: 50px;
+  border-radius: 5px;
+}
+
+.image-container img {
+  width: 50%; /* Adjust the width value to resize the image */
+  height: auto;
+  border: 2px solid #fff;
+}
+
+.image-container img:hover {
+  opacity: 0.8;
+}
+.text-container {
+  flex: 1 0 40%; /* taking up to 40% width to fit next to image container */
+  padding: 0 20px; /* some padding for spacing */
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.bottom-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 50px;  /* Add some margin between text and the bottom section */
+}
+
+.container {
+  width: 300px;
+  height: 280px;
+  /* position: absolute;   <- Remove this line */
+  /* top: calc(70% - 140px);   <- Remove this line */
+  /* left: calc(70% - 150px);  <- Remove this line */
+}
+
+.image-container {
+  margin-right: 20px;  /* Space between image and coffee maker */
+  margin-top: 
+}
