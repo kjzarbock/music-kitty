@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "./Register.css";
 
 export const Register = () => {
     const [userData, setUserData] = useState({
@@ -46,6 +47,21 @@ export const Register = () => {
     };
 
     return (
+        <>
+                <div className="area">
+                <ul className="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
         <main className="container--register">
             <section>
                 <form className="form--register" onSubmit={handleRegister}>
@@ -119,5 +135,6 @@ export const Register = () => {
                 <Link to="/login">Already a member? Login</Link>
             </section>
         </main>
+        </>
     )
 };

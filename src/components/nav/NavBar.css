@@ -1,15 +1,43 @@
-.navbar {
+.navbar-container {
+    position: relative;
+    padding: 10px;
+}
+
+.hamburger-btn {
+    background: none;
+    border: none;
+    color: #000;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.navbar-dropdown {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    border-radius: 5px;
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
+    flex-direction: column;
+    z-index: 5;
+    width: 200px;  /* adjust width as needed */
 }
 
 .navbar__item {
-    flex-basis: 20%;
-    list-style-type: none;
+    padding: 10px;
+    border-bottom: 1px solid #555;  /* optional separator */
 }
 
-.navbar__logout {
-    margin-left: auto;
+.navbar__link {
+    text-decoration: none;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    display: block;
 }
 
+.navbar__link:hover {
+    background-color: #555;
+}
