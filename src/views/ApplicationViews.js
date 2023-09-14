@@ -9,6 +9,7 @@ import { CatList } from "../components/cats/CatList";
 import { CatDetails } from "../components/cats/CatDetails";
 import { ProductList } from "../components/products/ProductList";
 import { ProductDetails } from "../components/products/ProductDetails";
+import { ReservationForm } from "../components/reservations/ReservationForm";
 
 export const ApplicationViews = ({ token, setToken }) => {
     return (
@@ -27,6 +28,7 @@ export const ApplicationViews = ({ token, setToken }) => {
 				<Route path="/cats/:catId" element={<CatDetails setToken={setToken} />} />
 				<Route path="/products" element={<ProductList setToken={setToken} />} />
 				<Route path="/products/:productId" element={<ProductDetails setToken={setToken} />} />
+				<Route path="/reservations" element={<ReservationForm setToken={setToken} />} />
               </Routes>
             </Authorized>
           } 
