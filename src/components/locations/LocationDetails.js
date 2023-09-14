@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { getSingleLocation } from '../../managers/LocationManager';
-import "./Locations.css";
-
+import { useParams, Link } from 'react-router-dom';
+import { getSingleLocation, getProductsByLocation } from '../../managers/LocationManager';
 
 export const LocationDetails = ({ locationId: locationIdProp }) => {
   const [location, setLocation] = useState({});
+  const [products, setProducts] = useState([]);
   const { locationId: locationIdParam } = useParams();
   const locationId = locationIdProp || locationIdParam;
 
   useEffect(() => {
     getSingleLocation(locationId)
       .then(setLocation);
+    getProductsByLocation(locationId)
+      .then(setProducts);
   }, [locationId]);
 
   return (
@@ -28,6 +28,16 @@ export const LocationDetails = ({ locationId: locationIdProp }) => {
           {location.cats && location.cats.map(cat => (
             <li key={cat.id}>
                 <Link to={`/cats/${cat.id}`}>{cat.name}<img src={cat.image} alt={cat.name} /></Link>, {cat.age} years old
+            </li>
+          ))}
+        </ul>
+
+        <h3>Products available at this location:</h3>
+        <ul>
+          {products.map(product => (
+            <li key={product.id}>
+                {product.description} {/* Displaying product description without making it a link */}
+                <img src={product.image} alt={product.description} />
             </li>
           ))}
         </ul>

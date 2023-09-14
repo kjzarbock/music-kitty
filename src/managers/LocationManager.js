@@ -10,10 +10,6 @@ const getAuthHeaders = () => {
 };
 
 export const getLocations = () => {
-    // Log the token before making the fetch call
-    const tokenForLogging = JSON.parse(localStorage.getItem("kitty_user"))?.token;
-    console.log('Token for getLocations:', tokenForLogging);
-
     return fetch("http://localhost:8000/locations", {
     headers: getAuthHeaders()
     })
@@ -27,13 +23,19 @@ export const getLocations = () => {
 };
 
 export const getSingleLocation = (locationId) => {
-    // Log the token before making the fetch call
-    const tokenForLogging = JSON.parse(localStorage.getItem("kitty_user"))?.token;
-    console.log('Token for getSingleLocation:', tokenForLogging);
-
     return fetch(`http://localhost:8000/locations/${locationId}`, {
     headers: getAuthHeaders()
     })
     .then(res => res.json());
 };
+
+export const getProductsByLocation = (locationId) => {
+    return fetch("http://localhost:8000/products", { 
+        headers: getAuthHeaders() 
+    })
+    .then(res => res.json())
+    .then(products => products.filter(product => 
+        product.locations.some(location => location.id === parseInt(locationId))
+    ));
+}
 

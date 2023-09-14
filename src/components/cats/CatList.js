@@ -10,7 +10,7 @@ export const CatList = () => {
         getCats().then(fetchedCats => {
             setCats(fetchedCats);
         });
-    }, []);  // The empty dependency array ensures this useEffect runs only once
+    }, []); 
 
     return (
         <div>

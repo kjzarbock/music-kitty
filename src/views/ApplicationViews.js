@@ -4,9 +4,11 @@ import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
 import { Home } from "../components/home/Home";
 import { LocationList } from "../components/locations/LocationList";
-import { LocationDetails } from "../components/locations/LocationDetails"; // Import the new component
+import { LocationDetails } from "../components/locations/LocationDetails"; 
 import { CatList } from "../components/cats/CatList";
 import { CatDetails } from "../components/cats/CatDetails";
+import { ProductList } from "../components/products/ProductList";
+import { ProductDetails } from "../components/products/ProductDetails";
 
 export const ApplicationViews = ({ token, setToken }) => {
     return (
@@ -23,6 +25,8 @@ export const ApplicationViews = ({ token, setToken }) => {
                 <Route path="/locations" element={<LocationList setToken={setToken} />} />
                 <Route path="/locations/:locationId" element={<LocationDetails />} />
 				<Route path="/cats/:catId" element={<CatDetails setToken={setToken} />} />
+				<Route path="/products" element={<ProductList setToken={setToken} />} />
+				<Route path="/products/:productId" element={<ProductDetails setToken={setToken} />} />
               </Routes>
             </Authorized>
           } 
