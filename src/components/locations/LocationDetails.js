@@ -36,7 +36,7 @@ export const LocationDetails = ({ locationId: locationIdProp }) => {
         <ul>
           {products.map(product => (
             <li key={product.id}>
-                {product.description} {/* Displaying product description without making it a link */}
+                {product.description} Price: ${product.price}
                 <img src={product.image} alt={product.description} />
             </li>
           ))}
