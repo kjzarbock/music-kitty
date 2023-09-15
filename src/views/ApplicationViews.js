@@ -3,23 +3,30 @@ import { Login } from "../components/auth/Login";
 import { Register } from "../components/auth/Register";
 import { Authorized } from "./Authorized";
 import { Home } from "../components/home/Home";
+import { LocationList } from "../components/locations/LocationList";
+import { LocationDetails } from "../components/locations/LocationDetails"; // Import the new component
+import { CatList } from "../components/cats/CatList";
+import { CatDetails } from "../components/cats/CatDetails";
 
 export const ApplicationViews = ({ token, setToken }) => {
-  return (
-    <Routes>
-      <Route path="/login" element={<Login setToken={setToken} />} />
-      <Route path="/register" element={<Register setToken={setToken} />} />
-      <Route 
-        path="/" 
-        element={
-          <Authorized token={token}>
-            <Routes>
-              <Route path="/" element={<Home setToken={setToken} />} />
-              {/* Add other nested routes under Authorized here, if any */}
-            </Routes>
-          </Authorized>
-        } 
-      />
-    </Routes>
-  );
+    return (
+      <Routes>
+        <Route path="/login" element={<Login setToken={setToken} />} />
+        <Route path="/register" element={<Register setToken={setToken} />} />
+        <Route 
+          path="/*" 
+          element={
+            <Authorized token={token}>
+              <Routes>
+                <Route index element={<Home setToken={setToken} />} />
+				<Route path="/cats" element={<CatList setToken={setToken} />} />
+                <Route path="/locations" element={<LocationList setToken={setToken} />} />
+                <Route path="/locations/:locationId" element={<LocationDetails />} />
+				<Route path="/cats/:catId" element={<CatDetails setToken={setToken} />} />
+              </Routes>
+            </Authorized>
+          } 
+        />
+      </Routes>
+    );
 };
