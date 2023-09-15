@@ -7,10 +7,11 @@ export const Home = () => {
     <div className="home-container">
 
       <div className="text-container">
-        <h1>MUSIC KITTY</h1>
+        <h1>MUSIC KITTY CAT CAFE</h1>
+        
         <h2>FROM STRAY TO STAR</h2>
 
-        <p>Welcome to Music Kitty! 🎵🐱</p>
+        <p>Welcome to Music Kitty! 🎵🐱</p><br></br>
         <p>Discover a unique blend of music and feline affection here at Music Kitty. 
             Our platform bridges the melodious world of music enthusiasts with the adorable realm of cat lovers. 
             Whether you're an aspiring musician seeking inspiration from our furry friends, or a cat aficionado with a penchant for beats and rhythms, 

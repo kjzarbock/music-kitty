@@ -26,6 +26,9 @@ export const NavBar = () => {
                     <li className="navbar__item">
                         <Link className="navbar__link" to="/cats" onClick={() => setIsOpen(false)}>Cats</Link>
                     </li>
+                    <li className="navbar__item">
+                        <Link className="navbar__link" to="/products" onClick={() => setIsOpen(false)}>Products</Link>
+                    </li>
                     {/* ... other links ... */}
                     <li className="navbar__item navbar__logout">
                         <Link className="navbar__link" to="" onClick={handleLogout}>Logout</Link>
