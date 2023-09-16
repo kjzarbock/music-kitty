@@ -16,7 +16,7 @@ export const EditCat = ({ cat, onClose, onUpdateCat }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Create the correct payload with the 'id' field
     const updatedCatPayload = {
       id: updatedCat.id, // Ensure 'id' is included
@@ -31,19 +31,14 @@ export const EditCat = ({ cat, onClose, onUpdateCat }) => {
       gets_along_with_dogs: updatedCat.gets_along_with_dogs,
       gets_along_with_children: updatedCat.gets_along_with_children,
     };
-
+  
     console.log('updatedCatPayload:', updatedCatPayload);
-
+  
     updateCat(cat.id, updatedCatPayload)
       .then((response) => {
         if (response !== null) {
-          // Cat updated successfully, you can handle success here
-          console.log('Cat updated:', response);
-
-          // Call the callback function to update the cat data in CatDetails component
           onUpdateCat(updatedCatPayload);
-
-          onClose(); // Close the edit form
+          onClose(); 
         } else {
           console.error('Error updating cat.');
         }
@@ -51,8 +46,9 @@ export const EditCat = ({ cat, onClose, onUpdateCat }) => {
       .catch((error) => {
         console.error('Error updating cat:', error);
       });
-  };
-
+      window.location.reload();
+    };
+  
   return (
     <div className="edit-cat-form">
       <h2>Edit Cat</h2>
