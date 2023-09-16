@@ -18,14 +18,15 @@ export const LocationDetails = ({ locationId: locationIdProp }) => {
 
   return (
     <>
+    <h1 className="location-detail-header">{location.name}</h1>
     <section className="post">
-        <div className="location-list-name">Name: {location.name}</div>
+      
         <div className="location-list-name">Address: {location.address}</div>
         <div className="location-list-name">Phone: {location.phone_number}</div>
         <div className="location-list-name">Opening Hours: {location.opening_hours}</div>
         <div className="location-list-name">Closing Hours: {location.closing_hours}</div>
         
-        <h3>Cats at this Location:</h3>
+        <h2>Cats at this Location:</h2>
         <ul>
           {location.cats && location.cats.map(cat => (
             <li key={cat.id}>
@@ -34,7 +35,7 @@ export const LocationDetails = ({ locationId: locationIdProp }) => {
           ))}
         </ul>
 
-        <h3>Products available at this location:</h3>
+        <h2>Products available at this location:</h2>
         <ul>
           {products.map(product => (
             <li key={product.id}>
