@@ -6,6 +6,10 @@ export const ReservationList = () => {
     const [locations, setLocations] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [editingReservation, setEditingReservation] = useState(null);
+    const [title, setTitle] = useState("My Reservations");
+
+    const localUser = JSON.parse(localStorage.getItem("kitty_user"));
+    const staff = localUser?.staff;
     
     const timeSlots = [];
     let currentTime = new Date();
@@ -18,6 +22,12 @@ export const ReservationList = () => {
         timeSlots.push(formattedTime);
         currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
     }
+
+    useEffect(() => {
+        if (staff) {
+            setTitle("All Reservations");
+        }
+    }, [staff]);
 
     useEffect(() => {
         fetchReservations();
@@ -168,7 +178,7 @@ const handleSave = () => {
 
     return (
         <div>
-            <h2>My Reservations</h2>
+            <h2>{title}</h2>
             {isEditing ? (
                 <div>
                     <h3>Edit Reservation</h3>
@@ -187,6 +197,7 @@ const handleSave = () => {
                 <ul>
                     {reservations.map(reservation => (
                         <li key={reservation.id}>
+                            <div><strong>Guest Name:</strong> {reservation.profile.user.first_name} {reservation.profile.user.last_name}</div>
                             <div><strong>Location:</strong> {reservation.location.name}</div>
                             <div><strong>Date:</strong> {reservation.date}</div>
                             <div><strong>Time:</strong> {reservation.time}</div>
