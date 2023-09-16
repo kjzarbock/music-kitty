@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createReservation } from '../../managers/ReservationManager';
 import { getLocations } from '../../managers/LocationManager';
 import { Link } from 'react-router-dom';
+import { ReservationList } from './ReservationList';
 
 export const ReservationForm = () => {
     const [locations, setLocations] = useState([]);
@@ -14,10 +15,10 @@ export const ReservationForm = () => {
 
     useEffect(() => {
         getLocations().then(setLocations);
-
+        
         const localUser = JSON.parse(localStorage.getItem("kitty_user"));
         const token = localUser?.token;
-
+        
         if (token) {
             fetch(`http://localhost:8000/profiles/me/`, {
                 method: "GET",
@@ -28,15 +29,17 @@ export const ReservationForm = () => {
             })
             .then(res => res.json())
             .then(data => {
-                console.log("Fetched data:", data);
+                console.log("Fetched user data:", data);  // Log the fetched data
                 setUserInfo(data);
                 setLoadingUserInfo(false);
             })
             .catch(error => {
                 console.error("Error fetching user information:", error);
+                setUserInfo(localUser);  // Use local storage data if fetch fails
                 setLoadingUserInfo(false);
             });
         } else {
+            setUserInfo(localUser);  // Use local storage data if no token
             setLoadingUserInfo(false);
         }
     }, []);
@@ -112,66 +115,71 @@ Number of Guests: ${numberOfGuests}
                 console.error("Error creating reservation:", error);
             });
     };
-
+    console.log('userInfo:', userInfo);
+    console.log('userInfo?.user?.staff:', userInfo?.user?.staff);
     if (loadingUserInfo) {
-        return <div>Loading...</div>; // or some other loading indicator
+        return <div>Loading...</div>;
     }
 
-    return (
-        <div>
-            <h2>Create Reservation</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Location:</label>
-                    <select 
-                        value={location} 
-                        onChange={(e) => setLocation(e.target.value)}
-                        required
-                    >
-                        <option value="">Select a Location</option>
-                        {locations.map(loc => (
-                            <option key={loc.id} value={loc.id}>{loc.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label>Date:</label>
-                    <input 
-                        type="date" 
-                        value={reservationDate} 
-                        onChange={(e) => setReservationDate(e.target.value)} 
-                        required 
-                    />
-                </div>
-                <div>
-                    <label>Time:</label>
-                    <select
-                        value={reservationTime}
-                        onChange={(e) => setReservationTime(e.target.value)}
-                        required
-                    >
-                        {timeSlots.map(slot => (
-                            <option key={slot} value={slot}>{slot}</option>
-                        ))}
-                    </select>
-                </div>
-                <div>
-                    <label>Number of Guests:</label>
-                    <input 
-                        type="number" 
-                        value={numberOfGuests} 
-                        onChange={(e) => setNumberOfGuests(e.target.value)} 
-                        required 
-                    />
-                </div>
-                <div>
-                    <button type="submit">Create Reservation</button>
-                </div>
-            </form>
-            {/* Add the link to "my-reservations" below */}
+    if (userInfo?.user?.is_staff) {
+        console.log('Rendering ReservationList');
+        return <ReservationList />;
+    } else {
+        return (
             <div>
-                <Link to="/my-reservations">View My Reservations</Link>
+                <h2>Create Reservation</h2>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Location:</label>
+                        <select 
+                            value={location} 
+                            onChange={(e) => setLocation(e.target.value)}
+                            required
+                        >
+                            <option value="">Select a Location</option>
+                            {locations.map(loc => (
+                                <option key={loc.id} value={loc.id}>{loc.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Date:</label>
+                        <input 
+                            type="date" 
+                            value={reservationDate} 
+                            onChange={(e) => setReservationDate(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label>Time:</label>
+                        <select
+                            value={reservationTime}
+                            onChange={(e) => setReservationTime(e.target.value)}
+                            required
+                        >
+                            {timeSlots.map(slot => (
+                                <option key={slot} value={slot}>{slot}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label>Number of Guests:</label>
+                        <input 
+                            type="number" 
+                            value={numberOfGuests} 
+                            onChange={(e) => setNumberOfGuests(e.target.value)} 
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <button type="submit">Create Reservation</button>
+                    </div>
+                </form>
+                <div>
+                    <Link to="/my-reservations">View My Reservations</Link>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 };

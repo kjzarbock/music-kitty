@@ -23,14 +23,14 @@ export const ApplicationViews = ({ token, setToken }) => {
             <Authorized token={token}>
               <Routes>
                 <Route index element={<Home setToken={setToken} />} />
-				<Route path="/cats" element={<CatList setToken={setToken} />} />
+				        <Route path="/cats" element={<CatList setToken={setToken} />} />
                 <Route path="/locations" element={<LocationList setToken={setToken} />} />
                 <Route path="/locations/:locationId" element={<LocationDetails />} />
-				<Route path="/cats/:catId" element={<CatDetails setToken={setToken} />} />
-				<Route path="/products" element={<ProductList setToken={setToken} />} />
-				<Route path="/products/:productId" element={<ProductDetails setToken={setToken} />} />
-				<Route path="/reservations" element={<ReservationForm setToken={setToken} />} />
-        <Route path="/my-reservations" element={<ReservationList setToken={setToken} />} />
+                <Route path="/cats/:catId" element={<CatDetails setToken={setToken} />} />
+                <Route path="/products" element={<ProductList setToken={setToken} />} />
+                <Route path="/products/:productId" element={<ProductDetails setToken={setToken} />} />
+                <Route path="/reservations" element={<ReservationForm setToken={setToken} />} />
+                <Route path="/my-reservations" element={<ReservationList setToken={setToken} />} />
               </Routes>
             </Authorized>
           } 
