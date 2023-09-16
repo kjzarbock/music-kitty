@@ -41,7 +41,8 @@ export const Register = () => {
         })
         .then(response => {
             if (response.token) {
-                localStorage.setItem("kitty_user", response.token);
+                // Remove this line to fix the issue
+                // localStorage.setItem("kitty_user", response.token);
                 navigate("/login");
             } else {
                 window.alert(response.message || 'Registration failed');

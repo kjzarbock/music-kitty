@@ -31,18 +31,20 @@ export const ProductList = () => {
                             <img src={product.image} alt={product.description} />
                             <div className="product-description">{product.description}</div>
                             <div className="product-price">${product.price.toFixed(2)}</div>
-                            <div className="product-available-locations">
-                                <strong>Available At:</strong>
-                                
-                                    {product.locations.map(location => (
-                                        <li key={location.id}>
-                                            <Link to={`/locations/${location.id}`}>
-                                                {location.name}
-                                            </Link> 
-                                        </li>
-                                    ))}
-                            
-                            </div>
+                            {product.locations.length > 0 && (
+                                <div className="product-available-locations">
+                                    <strong>Available At:</strong>
+                                    <ul>
+                                        {product.locations.map(location => (
+                                            <li key={location.id}>
+                                                <Link to={`/locations/${location.id}`}>
+                                                    {location.name}
+                                                </Link>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </li>
                     ))}
                 </ul>
@@ -50,3 +52,4 @@ export const ProductList = () => {
         </div>
     );
 };
+
