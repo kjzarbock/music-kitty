@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { updateCat } from '../../managers/CatManager';
 
-export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
+export const EditCat = ({ cat, onClose, onUpdateCat }) => {
   const [updatedCat, setUpdatedCat] = useState({ ...cat });
 
   const handleInputChange = (e) => {
@@ -39,20 +39,19 @@ export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
         if (response !== null) {
           // Cat updated successfully, you can handle success here
           console.log('Cat updated:', response);
-          onUpdate(updatedCatPayload); // Pass the updated cat data to the parent component
-          setCat((prevCat) => ({
-            ...prevCat,
-            ...updatedCat, // Merge updatedCat properties into prevCat
-          }));
+
+          // Call the callback function to update the cat data in CatDetails component
+          onUpdateCat(updatedCatPayload);
+
           onClose(); // Close the edit form
         } else {
+          console.error('Error updating cat.');
         }
       })
       .catch((error) => {
         console.error('Error updating cat:', error);
       });
   };
-
 
   return (
     <div className="edit-cat-form">
@@ -77,6 +76,13 @@ export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
           type="number"
           name="age"
           value={updatedCat.age}
+          onChange={handleInputChange}
+        />
+        <label>Sex:</label>
+        <input
+          type="text"
+          name="sex"
+          value={updatedCat.sex}
           onChange={handleInputChange}
         />
         <label>Bio:</label>
