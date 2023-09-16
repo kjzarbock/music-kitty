@@ -28,21 +28,14 @@ export const Register = () => {
             body: JSON.stringify(userData)
         })
         .then(res => {
-            // Log the response status and headers
-            console.log('Response Status:', res.status);
-            console.log('Response Headers:', res.headers);
-
-            // Check if the response status is OK (200)
             if (res.status === 200) {
-                return res.json(); // Parse JSON if the response is OK
+                return res.json(); 
             } else {
-                throw new Error('Registration failed'); // Handle non-OK status codes
+                throw new Error('Registration failed');
             }
         })
         .then(response => {
             if (response.token) {
-                // Remove this line to fix the issue
-                // localStorage.setItem("kitty_user", response.token);
                 navigate("/login");
             } else {
                 window.alert(response.message || 'Registration failed');
