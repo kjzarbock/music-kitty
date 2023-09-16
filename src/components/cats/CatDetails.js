@@ -20,7 +20,6 @@ export const CatDetails = ({ catId: catIdProp }) => {
     <section className="post">
         <div className="user-list-name">Name: {cat.name}</div>
         <img src={cat.image} alt={cat.name} />
-        {/* Updated this part to be a link */}
         <div className="cat-list-location">
             Location: {cat.location && <Link to={`/locations/${cat.location.id}`}>{cat.location.name}</Link>}
         </div>
