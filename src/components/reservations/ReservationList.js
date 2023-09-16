@@ -21,12 +21,25 @@ export const ReservationList = () => {
             })
             .then(res => res.json())
             .then(data => {
-                setReservations(data);
+                // Format the time to 12-hour format with AM/PM
+                const formattedData = data.map(reservation => ({
+                    ...reservation,
+                    time: formatTime(reservation.time),
+                }));
+                setReservations(formattedData);
             })
             .catch(error => {
                 console.error("Error fetching reservations:", error);
             });
         }
+    };
+
+    const formatTime = (time24Hour) => {
+        const [hours, minutes] = time24Hour.split(':');
+        const parsedHours = parseInt(hours, 10);
+        const ampm = parsedHours >= 12 ? 'PM' : 'AM';
+        const twelveHour = parsedHours % 12 || 12; // Convert 0 to 12
+        return `${twelveHour}:${minutes} ${ampm}`;
     };
 
     const handleDelete = (reservationId) => {
