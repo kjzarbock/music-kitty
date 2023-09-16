@@ -3,6 +3,7 @@ import { createReservation } from '../../managers/ReservationManager';
 import { getLocations } from '../../managers/LocationManager';
 import { Link } from 'react-router-dom';
 import { ReservationList } from './ReservationList';
+import { Background } from '../background/Background';
 
 export const ReservationForm = () => {
     const [locations, setLocations] = useState([]);
@@ -126,6 +127,7 @@ Number of Guests: ${numberOfGuests}
         return <ReservationList />;
     } else {
         return (
+            <>
             <div>
                 <h2>Create Reservation</h2>
                 <form onSubmit={handleSubmit}>
@@ -180,6 +182,8 @@ Number of Guests: ${numberOfGuests}
                     <Link to="/my-reservations">View My Reservations</Link>
                 </div>
             </div>
+            <Background />
+            </>
         );
     }
 };

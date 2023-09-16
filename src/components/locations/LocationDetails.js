@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getSingleLocation, getProductsByLocation } from '../../managers/LocationManager';
+import { Background } from '../background/Background';
 
 export const LocationDetails = ({ locationId: locationIdProp }) => {
   const [location, setLocation] = useState({});
@@ -16,6 +17,7 @@ export const LocationDetails = ({ locationId: locationIdProp }) => {
   }, [locationId]);
 
   return (
+    <>
     <section className="post">
         <div className="location-list-name">Name: {location.name}</div>
         <div className="location-list-name">Address: {location.address}</div>
@@ -44,5 +46,7 @@ export const LocationDetails = ({ locationId: locationIdProp }) => {
 
         <Link to={`/locations`} className="location-profile-button">Back to all Locations</Link>
     </section>
+    <Background />
+    </>
   );
 };

@@ -43,6 +43,9 @@ export const updateUserProfile = (profileId, updatedProfile) => {
     })
     .then((response) => {
         if (response.ok) {
+            if (response.status === 204) { // No Content
+                return null;
+            }
             return response.json();
         } else {
             throw new Error("Failed to update profile.");

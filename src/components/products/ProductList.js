@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getProducts } from "../../managers/ProductManager";
 import { Link } from 'react-router-dom';
 import "./Products.css";
+import { Background } from "../background/Background";
 
 export const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -22,6 +23,7 @@ export const ProductList = () => {
     }
 
     return (
+        <>
         <div className="product-page-container">
             <h1 className="page-header">Product List</h1>
             <div className="product-container">
@@ -50,6 +52,8 @@ export const ProductList = () => {
                 </ul>
             </div>
         </div>
+        <Background />
+        </>
     );
 };
 

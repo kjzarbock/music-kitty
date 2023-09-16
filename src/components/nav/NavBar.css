@@ -1,12 +1,13 @@
 .navbar-container {
     position: relative;
     padding: 10px;
+    background: linear-gradient(to right, #545784, rgba(255, 255, 255, 0.2)); /* Gradient background */
 }
 
 .hamburger-btn {
     background: none;
     border: none;
-    color: #000;
+    color: #fff; /* White text */
     font-size: 24px;
     cursor: pointer;
 }
@@ -18,17 +19,18 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #333;
+    background-color: #a7a6a6;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     z-index: 5;
-    width: 200px;  /* adjust width as needed */
+    width: 200px;
+    background: linear-gradient(to right, #545784, rgba(255, 255, 255, 0.85)); /* Gradient background */
 }
 
 .navbar__item {
     padding: 10px;
-    border-bottom: 1px solid #555;  /* optional separator */
+    border-bottom: 1px solid #555;
 }
 
 .navbar__link {
@@ -36,8 +38,14 @@
     color: #fff;
     padding: 0.5rem 1rem;
     display: block;
+    font-size: 18px; /* Increased font size */
+    transition: transform 0.3s ease; /* Add transition */
 }
 
 .navbar__link:hover {
-    background-color: #555;
+    background-color: rgba(85, 85, 85, 0.1); /* 50% opacity */
+    color: #b19cd9; /* Light purple on hover */
+    transform: scale(1.1); /* Grow when hovered */
+    font-weight: bold;
 }
+

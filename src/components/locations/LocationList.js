@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { getLocations } from "../../managers/LocationManager";
+import { Background } from "../background/Background";
 
 export const LocationList = () => {
     const [locations, setLocations] = useState([]);
@@ -17,6 +18,7 @@ export const LocationList = () => {
     }
 
     return (
+        <>
         <div className="location-page-container">
             <h1 className="page-header">Location List</h1>
             <div className="location-container">
@@ -34,5 +36,7 @@ export const LocationList = () => {
                 </ul>
             </div>
         </div>
+        <Background />
+        </>
     );
 };

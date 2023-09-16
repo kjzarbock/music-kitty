@@ -1,9 +1,11 @@
 import React from "react";
 import "./Home.css";
+import { Background } from "../background/Background";
 
 export const Home = () => {
   return (
-    
+    <>
+    <Background />
     <div className="home-container">
 
       <div className="text-container">
@@ -49,7 +51,8 @@ export const Home = () => {
           <div className="coffee-footer"></div>
         </div>
       </div>
-
     </div>
+    </>
   );
 };
+

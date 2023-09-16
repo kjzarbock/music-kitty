@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getMyProfile, updateMyProfile } from '../../managers/ProfileManager';
 import './Profiles.css';
 import { Link } from 'react-router-dom';
+import { Background } from '../background/Background';
 
 export const MyProfile = () => {
   const { profileId } = useParams();
@@ -70,6 +71,7 @@ export const MyProfile = () => {
   const { user, image, bio, has_cats, has_dogs, has_children } = profile;
 
   return (
+    <>
     <div className="profile-details-container">
       <h1 className="profile-header">Profile Details</h1>
       <div className="profile-content">
@@ -99,12 +101,15 @@ export const MyProfile = () => {
               <div className="profile-has-cats">Has Cats: {has_cats ? 'Yes' : 'No'}</div>
               <div className="profile-has-dogs">Has Dogs: {has_dogs ? 'Yes' : 'No'}</div>
               <div className="profile-has-children">Has Children: {has_children ? 'Yes' : 'No'}</div>
+              <div className="profile-approved">Approved to Adopt: {profile.approved_to_adopt ? 'Yes' : 'No'}</div>
               <button onClick={handleEditClick}>Edit</button> {/* Show the "Edit" button */}
             </div>
           )}
-          <Link to="/profiles" className="location-profile-button">View Profiles</Link>
+          <Link to="/" className="location-profile-button">Back to Home</Link>
         </div>
       </div>
     </div>
+    <Background />
+    </>
   );
 };

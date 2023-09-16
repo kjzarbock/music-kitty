@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { ProfileDetails } from './ProfileDetails';
 import './Profiles.css'; // Import your CSS file for styling
 import { MyProfile } from './MyProfile';
+import { Background } from '../background/Background';
 
 export const ProfileList = () => {
   const [profiles, setProfiles] = useState([]);
@@ -26,6 +27,7 @@ export const ProfileList = () => {
 
   if (isStaff) {
     return (
+        <>
       <div className="profile-page-container">
         <h1 className="page-header">Profile List</h1>
         <div className="profile-container">
@@ -51,6 +53,8 @@ export const ProfileList = () => {
           </ul>
         </div>
       </div>
+      <Background />
+      </>
     );
   } else {
     return <MyProfile />
