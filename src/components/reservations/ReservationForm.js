@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { createReservation } from '../../managers/ReservationManager';
 import { getLocations } from '../../managers/LocationManager';
+import { Link } from 'react-router-dom';
 
 export const ReservationForm = () => {
     const [locations, setLocations] = useState([]);
     const [location, setLocation] = useState('');
     const [reservationDate, setReservationDate] = useState('');
-    const [reservationTime, setReservationTime] = useState('');
+    const [reservationTime, setReservationTime] = useState('11:00'); // Initialize to the earliest time
     const [numberOfGuests, setNumberOfGuests] = useState('');
     const [userInfo, setUserInfo] = useState(null);
     const [loadingUserInfo, setLoadingUserInfo] = useState(true);
@@ -18,7 +19,7 @@ export const ReservationForm = () => {
         const token = localUser?.token;
 
         if (token) {
-            fetch(`http://localhost:8000/profiles/me/`, {  // Updated URL
+            fetch(`http://localhost:8000/profiles/me/`, {
                 method: "GET",
                 headers: {
                     "Authorization": `Token ${token}`,
@@ -40,6 +41,35 @@ export const ReservationForm = () => {
         }
     }, []);
 
+    // Function to convert 12-hour time to 24-hour time
+    const convertTo24HourFormat = (time12Hour) => {
+        const [time, modifier] = time12Hour.split(' ');
+        let [hours, minutes] = time.split(':');
+        
+        if (hours === '12') {
+            hours = '00';
+        }
+        
+        if (modifier === 'PM') {
+            hours = parseInt(hours, 10) + 12;
+        }
+        
+        return `${hours}:${minutes}`;
+    };
+
+    // Generate an array of time slots between 11:00 AM and 8:00 PM
+    const timeSlots = [];
+    let currentTime = new Date();
+    currentTime.setHours(11, 0, 0, 0); // Start at 11:00 AM
+    const endTime = new Date();
+    endTime.setHours(20, 0, 0, 0); // End at 8:00 PM
+
+    while (currentTime <= endTime) {
+        const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        timeSlots.push(formattedTime);
+        currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -57,7 +87,7 @@ export const ReservationForm = () => {
             profile: userId,
             location: parseInt(location, 10),
             date: reservationDate,
-            time: reservationTime,
+            time: convertTo24HourFormat(reservationTime), // Convert to 24-hour format
             number_of_guests: parseInt(numberOfGuests, 10)
         };
 
@@ -65,7 +95,18 @@ export const ReservationForm = () => {
 
         createReservation(newReservation)
             .then(() => {
-                // Handle success, e.g., navigate to a confirmation page or show a success message
+                // Handle success
+                window.alert(`Reservation made successfully!
+Location: ${locations.find(loc => loc.id === parseInt(location, 10))?.name}
+Date: ${reservationDate}
+Time: ${reservationTime}
+Number of Guests: ${numberOfGuests}
+                `);
+                // Reset the form fields
+                setLocation('');
+                setReservationDate('');
+                setReservationTime('11:00'); // Reset to the earliest time
+                setNumberOfGuests('');
             })
             .catch((error) => {
                 console.error("Error creating reservation:", error);
@@ -104,12 +145,15 @@ export const ReservationForm = () => {
                 </div>
                 <div>
                     <label>Time:</label>
-                    <input 
-                        type="time" 
-                        value={reservationTime} 
-                        onChange={(e) => setReservationTime(e.target.value)} 
-                        required 
-                    />
+                    <select
+                        value={reservationTime}
+                        onChange={(e) => setReservationTime(e.target.value)}
+                        required
+                    >
+                        {timeSlots.map(slot => (
+                            <option key={slot} value={slot}>{slot}</option>
+                        ))}
+                    </select>
                 </div>
                 <div>
                     <label>Number of Guests:</label>
@@ -124,6 +168,10 @@ export const ReservationForm = () => {
                     <button type="submit">Create Reservation</button>
                 </div>
             </form>
+            {/* Add the link to "my-reservations" below */}
+            <div>
+                <Link to="/my-reservations">View My Reservations</Link>
+            </div>
         </div>
     );
 };

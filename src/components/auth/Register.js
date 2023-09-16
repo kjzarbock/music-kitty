@@ -27,14 +27,29 @@ export const Register = () => {
             },
             body: JSON.stringify(userData)
         })
-        .then(res => res.json())
+        .then(res => {
+            // Log the response status and headers
+            console.log('Response Status:', res.status);
+            console.log('Response Headers:', res.headers);
+
+            // Check if the response status is OK (200)
+            if (res.status === 200) {
+                return res.json(); // Parse JSON if the response is OK
+            } else {
+                throw new Error('Registration failed'); // Handle non-OK status codes
+            }
+        })
         .then(response => {
             if (response.token) {
                 localStorage.setItem("kitty_user", response.token);
                 navigate("/login");
             } else {
-                window.alert(response.message);
+                window.alert(response.message || 'Registration failed');
             }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            window.alert('Registration failed. Please try again.');
         });
     };
 
@@ -48,7 +63,7 @@ export const Register = () => {
 
     return (
         <>
-                <div className="area">
+            <div className="area">
                 <ul className="circles">
                     <li></li>
                     <li></li>
@@ -62,79 +77,79 @@ export const Register = () => {
                     <li></li>
                 </ul>
             </div>
-        <main className="container--register">
-            <section>
-                <form className="form--register" onSubmit={handleRegister}>
-                    <h1>Music Kitty</h1>
-                    <h2>Register</h2>
+            <main className="container--register">
+                <section>
+                    <form className="form--register" onSubmit={handleRegister}>
+                        <h1>Music Kitty</h1>
+                        <h2>Register</h2>
 
-                    <fieldset>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name="email" required onChange={handleChange} />
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="email">Email</label>
+                            <input type="email" name="email" required onChange={handleChange} />
+                        </fieldset>
 
-                    <fieldset>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" name="username" required onChange={handleChange} />
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="username">Username</label>
+                            <input type="text" name="username" required onChange={handleChange} />
+                        </fieldset>
 
-                    <fieldset>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" name="password" required onChange={handleChange} />
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="password">Password</label>
+                            <input type="password" name="password" required onChange={handleChange} />
+                        </fieldset>
 
-                    <fieldset>
-                        <label htmlFor="first_name">First Name</label>
-                        <input type="text" name="first_name" required onChange={handleChange} />
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="first_name">First Name</label>
+                            <input type="text" name="first_name" required onChange={handleChange} />
+                        </fieldset>
 
-                    <fieldset>
-                        <label htmlFor="last_name">Last Name</label>
-                        <input type="text" name="last_name" required onChange={handleChange} />
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="last_name">Last Name</label>
+                            <input type="text" name="last_name" required onChange={handleChange} />
+                        </fieldset>
 
-                    <fieldset>
-                        <label htmlFor="bio">Bio</label>
-                        <textarea name="bio" onChange={handleChange}></textarea>
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="bio">Bio</label>
+                            <textarea name="bio" onChange={handleChange}></textarea>
+                        </fieldset>
 
-                    <fieldset>
-                        <label htmlFor="image">Profile Image URL</label>
-                        <input type="text" name="image" onChange={handleChange} />
-                    </fieldset>
+                        <fieldset>
+                            <label htmlFor="image">Profile Image URL</label>
+                            <input type="text" name="image" onChange={handleChange} />
+                        </fieldset>
 
-                    <fieldset>
-                        <label>
-                            <input type="checkbox" name="has_cats" onChange={handleChange} />
-                            Click here if you have a cat
-                        </label>
-                    </fieldset>
+                        <fieldset>
+                            <label>
+                                <input type="checkbox" name="has_cats" onChange={handleChange} />
+                                Click here if you have a cat
+                            </label>
+                        </fieldset>
 
-                    <fieldset>
-                        <label>
-                            <input type="checkbox" name="has_dogs" onChange={handleChange} />
-                            Click here if you have a dog
-                        </label>
-                    </fieldset>
+                        <fieldset>
+                            <label>
+                                <input type="checkbox" name="has_dogs" onChange={handleChange} />
+                                Click here if you have a dog
+                            </label>
+                        </fieldset>
 
-                    <fieldset>
-                        <label>
-                            <input type="checkbox" name="has_children" onChange={handleChange} />
-                            Click here if you have a child
-                        </label>
-                    </fieldset>
+                        <fieldset>
+                            <label>
+                                <input type="checkbox" name="has_children" onChange={handleChange} />
+                                Click here if you have a child
+                            </label>
+                        </fieldset>
 
-                    <fieldset>
-                        <button type="submit">
-                            Register
-                        </button>
-                    </fieldset>
-                </form>
-            </section>
-            <section className="link--login">
-                <Link to="/login">Already a member? Login</Link>
-            </section>
-        </main>
+                        <fieldset>
+                            <button type="submit">
+                                Register
+                            </button>
+                        </fieldset>
+                    </form>
+                </section>
+                <section className="link--login">
+                    <Link to="/login">Already a member? Login</Link>
+                </section>
+            </main>
         </>
-    )
+    );
 };
