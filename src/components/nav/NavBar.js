@@ -42,7 +42,7 @@ export const NavBar = () => {
                             <Link className="navbar__link" to="/reservations" onClick={() => setIsOpen(false)}>Reservations</Link>
                         </li>
                         <li className="navbar__item">
-                            <Link className="navbar__link" to="/profiles" onClick={() => setIsOpen(false)}>Profile Management</Link>
+                            <Link className="navbar__link" to="/profiles" onClick={() => setIsOpen(false)}>Manage Profile</Link>
                         </li>
                         <li className="navbar__item navbar__logout">
                             <Link className="navbar__link" to="" onClick={handleLogout}>Logout</Link>
