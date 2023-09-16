@@ -6,7 +6,6 @@ export const CatList = () => {
     const [cats, setCats] = useState([]);
 
     useEffect(() => {
-        // Fetch the list of cats on component mount
         getCats().then(fetchedCats => {
             setCats(fetchedCats);
         });

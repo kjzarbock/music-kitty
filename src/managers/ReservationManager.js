@@ -44,29 +44,3 @@ export const getSingleReservation = (reservationId) => {
 };
 
 
-export const getUserReservations = () => {
-    const localUser = JSON.parse(localStorage.getItem("kitty_user"));
-    const token = localUser?.token;
-
-    return new Promise((resolve, reject) => {
-        if (token) {
-            fetch(`http://localhost:8000/reservations`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Token ${token}`,
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(res => res.json())
-            .then(data => {
-                resolve(data);
-            })
-            .catch(error => {
-                console.error("Error fetching reservations:", error);
-                reject(error);
-            });
-        } else {
-            reject(new Error("User token not available."));
-        }
-    });
-};
