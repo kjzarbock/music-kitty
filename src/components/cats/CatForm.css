@@ -1,0 +1,28 @@
+.cat-form {
+    margin: 10px; /* Reduced margin */
+    padding: 10px; /* Reduced padding */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  .cat-form input,
+  .cat-form textarea,
+  .cat-form button {
+    display:inline-block;
+    margin: 5px 0; /* Reduced margin */
+    padding: 5px; /* Reduced padding */
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .cat-form button {
+    background-color: #705c86;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .cat-form button:hover {
+    background-color: #ad8dcf;
+  }
+  
