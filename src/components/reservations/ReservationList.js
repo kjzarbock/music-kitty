@@ -118,11 +118,12 @@ export const ReservationList = () => {
             id: reservation.id,
             profile: reservation.profile,
             date: reservation.date,
-            time: '', // Set this to an empty string initially
+            time: reservation.time, 
             number_of_guests: reservation.number_of_guests,
             location: reservation.location.id
         });
     };
+    
 
     const handleSave = () => {
         const updatedReservation = {
