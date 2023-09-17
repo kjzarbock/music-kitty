@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { getLocations } from "../../managers/LocationManager";
 import { Background } from "../background/Background";
+import './Locations.css';
 
 export const LocationList = () => {
     const [locations, setLocations] = useState([]);

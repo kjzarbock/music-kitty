@@ -1,45 +1,80 @@
 .product-page-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.page-header {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .page-header {
+    font-size: 2rem;
     margin-bottom: 20px;
-}
-
-.product-container {
+  }
+  
+  .product-container {
+    width: 80%;
+    margin: auto;
+  }
+  
+  .product-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-}
-
-.product-list-item {
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    border-radius: 8px;
-    list-style-type: none;
-    max-width: 220px;
-}
-
-.product-list-item img {
-    max-width: 100%;
+    justify-content: center;
+    gap: 30px;
+  }
+  
+  .product-list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    font-size: 20px;
+    padding: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white;
+  }
+  
+  .product-list-item img {
+    width: 100px;
     height: auto;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.product-description,
-.product-price,
-.product-location-name,
-.product-location-address,
-.product-location-phone,
-.product-location-hours {
-    margin: 5px 0;
-}
-
-.product-price {
+    border: 2px solid #fff;
+  }
+  
+  .product-list-item img:hover {
+    opacity: 0.8;
+  }
+  
+  .product-description {
     font-weight: bold;
-}
-
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 10px 0;
+  }
+  
+  .product-price {
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 10px;
+  }
+  
+  .product-available-locations {
+    font-size: 1rem;
+  }
+  
+  .product-available-locations strong {
+    font-size: 1.2rem;
+  }
+  
+  .product-available-locations ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 5px 0;
+  }
+  
+  .product-available-locations li {
+    padding: 2px 0;
+  }
+  

@@ -62,7 +62,6 @@ export const CatForm = ({ onCatAdded }) => {
           ))}
         </select>
 
-        {/* Rest of the form */}
         <input type="text" name="name" placeholder="Name" onChange={handleChange} value={newCat.name} />
         <input type="text" name="image" placeholder="Image URL" onChange={handleChange} value={newCat.image} />
         <input type="number" name="age" placeholder="Age" onChange={handleChange} value={newCat.age} />

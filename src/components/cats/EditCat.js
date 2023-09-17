@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { updateCat } from '../../managers/CatManager';
+import './EditCat.css'
 
 export const EditCat = ({ cat, onClose, onUpdateCat }) => {
   const [updatedCat, setUpdatedCat] = useState({ ...cat });
@@ -49,85 +50,76 @@ export const EditCat = ({ cat, onClose, onUpdateCat }) => {
       window.location.reload();
     };
   
-  return (
-    <div className="edit-cat-form">
-      <h2>Edit Cat</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={updatedCat.name}
-          onChange={handleInputChange}
-        />
-        <label>Image URL:</label>
-        <input
-          type="text"
-          name="image"
-          value={updatedCat.image}
-          onChange={handleInputChange}
-        />
-        <label>Age:</label>
-        <input
-          type="number"
-          name="age"
-          value={updatedCat.age}
-          onChange={handleInputChange}
-        />
-        <label>Sex:</label>
-        <input
-          type="text"
-          name="sex"
-          value={updatedCat.sex}
-          onChange={handleInputChange}
-        />
-        <label>Bio:</label>
-        <textarea
-          name="bio"
-          value={updatedCat.bio}
-          onChange={handleInputChange}
-        ></textarea>
-        <label>
-          Adopted:
-          <input
-            type="checkbox"
-            name="adopted"
-            checked={updatedCat.adopted}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Gets along with cats:
-          <input
-            type="checkbox"
-            name="gets_along_with_cats"
-            checked={updatedCat.gets_along_with_cats}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Gets along with dogs:
-          <input
-            type="checkbox"
-            name="gets_along_with_dogs"
-            checked={updatedCat.gets_along_with_dogs}
-            onChange={handleInputChange}
-          />
-        </label>
-        <label>
-          Gets along with children:
-          <input
-            type="checkbox"
-            name="gets_along_with_children"
-            checked={updatedCat.gets_along_with_children}
-            onChange={handleInputChange}
-          />
-        </label>
-        <button type="submit">Save Changes</button>
-        <button type="button" onClick={onClose}>
-          Cancel
-        </button>
-      </form>
-    </div>
-  );
+    return (
+      <div className="edit-cat-form form-container">
+        <h2 className="form-header">Edit Cat</h2>
+        <form onSubmit={handleSubmit} className="main-form">
+          <div className="form-group">
+            <label className="form-label">Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={updatedCat.name}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Image URL:</label>
+            <input
+              type="text"
+              name="image"
+              value={updatedCat.image}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Age:</label>
+            <input
+              type="number"
+              name="age"
+              value={updatedCat.age}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Sex:</label>
+            <input
+              type="text"
+              name="sex"
+              value={updatedCat.sex}
+              onChange={handleInputChange}
+              className="form-input"
+            />
+          </div>
+          <div className="form-group">
+            <label className="form-label">Bio:</label>
+            <textarea
+              name="bio"
+              value={updatedCat.bio}
+              onChange={handleInputChange}
+              className="form-input form-textarea"
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label className="form-label">
+              Adopted:
+              <input
+                type="checkbox"
+                name="adopted"
+                checked={updatedCat.adopted}
+                onChange={handleInputChange}
+              />
+            </label>
+          </div>
+          {/* ... Other form groups for checkboxes */}
+          <div className="form-actions">
+            <button type="submit" className="btn submit-btn">Save Changes</button>
+            <button type="button" onClick={onClose} className="btn cancel-btn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    );
 };

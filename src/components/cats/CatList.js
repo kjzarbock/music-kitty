@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { getCats } from "../../managers/CatManager";
-import { CatForm } from './CatForm';  // Import the CatForm component
+import { CatForm } from './CatForm';  
 import { Link } from 'react-router-dom';
 import { Background } from '../background/Background';
-import { getLocations } from "../../managers/LocationManager"; // Import the getLocations function
+import { getLocations } from "../../managers/LocationManager"; 
 import './CatForm.css';
 
 export const CatList = () => {
   const [cats, setCats] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // State for search term
-  const [locations, setLocations] = useState([]); // State for locations
-  const user = JSON.parse(localStorage.getItem("kitty_user")); // Retrieve user info from local storage
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [locations, setLocations] = useState([]); 
+  const user = JSON.parse(localStorage.getItem("kitty_user"));
 
   useEffect(() => {
     getCats().then(fetchedCats => {
@@ -23,15 +23,14 @@ export const CatList = () => {
   }, []);
 
   const handleCatAdded = (newCat) => {
-    setCats([...cats, newCat]);  // Update the list of cats
+    setCats([...cats, newCat]);  
   };
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value); // Update search term state
+    setSearchTerm(e.target.value); 
   };
 
   const filteredCats = cats.filter(cat => {
-    // Check if the cat's name or location name contains the search term (case insensitive)
     return (
       cat.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       cat.location.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -40,7 +39,7 @@ export const CatList = () => {
 
   return (
     <>
-      <div>
+      <div className="cat-list-container">
         {user && user.staff ? <CatForm onCatAdded={handleCatAdded} /> : null} 
         <h2>All of Our Music Kitty Cats!</h2>
         <input
@@ -48,20 +47,21 @@ export const CatList = () => {
           placeholder="Search by name or location"
           value={searchTerm}
           onChange={handleSearchChange}
+          className="cat-search-input"
         />
         <h3>Our Locations</h3>
-        <ul>
+        <ul className="location-list">
           {locations.map(location => (
             <li key={location.id}>
               {location.name}
             </li>
           ))}
         </ul>
-        <ul>
+        <div className="cat-grid">
           {filteredCats.map(cat => (
-            <li key={cat.id}>
+            <div className="cat-details" key={cat.id}>
               <h3>{cat.name}</h3>
-              <img src={cat.image} alt={cat.name} />
+              <img src={cat.image} alt={cat.name} className="cat-image"/>
               <p>Location: {cat.location && <Link to={`/locations/${cat.location.id}`}>{cat.location.name}</Link>}</p>
               <p>Age: {cat.age}</p>
               <p>Sex: {cat.sex}</p>
@@ -70,10 +70,10 @@ export const CatList = () => {
               <p>Gets along with cats: {cat.gets_along_with_cats ? 'Yes' : 'No'}</p>
               <p>Gets along with dogs: {cat.gets_along_with_dogs ? 'Yes' : 'No'}</p>
               <p>Gets along with children: {cat.gets_along_with_children ? 'Yes' : 'No'}</p>
-              <Link to={`/cats/${cat.id}`} className="location-profile-button">View Cat Details</Link>
-            </li>
+              <Link to={`/cats/${cat.id}`} className="cat-profile-button">View Cat Details</Link>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
       <Background />
     </>
