@@ -56,8 +56,8 @@ const handleStaffToggle = () => {
       <div className="profile-details-container">
         <h1 className="profile-header">Profile Details</h1>
         <div className="profile-content">
-          <img src={image} alt={`Profile of ${user.first_name}`} className="profile-image" />
           <div className="profile-details">
+          <img src={image} alt={`Profile of ${user.first_name}`} className="profile-image" />
             <div className="profile-name">{user.first_name} {user.last_name}</div>
             <div className="profile-email">Email: {user.email}</div>
             <div className="profile-username">Username: {user.username}</div>
