@@ -3,15 +3,17 @@
     padding: 10px; /* Reduced padding */
     border: 1px solid #ccc;
     border-radius: 8px;
+    width: calc(30% - 20px); /* Adjusted width */
+    display: inline-block; /* Added display property */
   }
   
   .cat-form input,
   .cat-form textarea,
   .cat-form button {
-    display:inline-block;
+    display: block;
     margin: 5px 0; /* Reduced margin */
     padding: 5px; /* Reduced padding */
-    width: 100%;
+    width: calc(100% - 12px); /* Adjusted width */
     border: 1px solid #ccc;
     border-radius: 4px;
   }
@@ -26,3 +28,15 @@
     background-color: #ad8dcf;
   }
   
+  .cat-list-container {
+  display: flex; /* Display children side by side */
+}
+
+.cat-list {
+  flex: 1; /* Take up remaining space */
+  margin-right: 20px; /* Add margin to separate form and list */
+}
+
+.cat-form {
+  width: 30%; /* Adjusted width for the form */
+}

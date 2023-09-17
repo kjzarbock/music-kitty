@@ -49,3 +49,42 @@ const getAuthHeaders = () => {
     });
   };
   
+  export const updateCat = (catId, updatedCat) => {
+    return fetch(`http://localhost:8000/cats/${catId}`, {
+      method: "PUT",
+      headers: getAuthHeaders(),
+      body: JSON.stringify(updatedCat),
+    })
+    .then((response) => {
+      console.log('Response status:', response.status);
+      if (response.ok || response.status === 204) {
+        if (response.status === 204) { // No Content
+          console.log('Cat updated successfully');
+          return null;
+        }
+        return response.json();
+      } else {
+        console.error('Failed to update cat. Response:', response);
+        throw new Error("Failed to update cat.");
+      }
+    })
+    .catch((error) => {
+      console.error('Error updating cat:', error);
+      throw error;
+    });
+  }
+  
+
+  export const deleteCat = (catId) => {
+    return fetch(`http://localhost:8000/cats/${catId}`, {
+      method: "DELETE",
+      headers: getAuthHeaders(),
+    })
+    .then((response) => {
+      if (response.ok) {
+        return null;
+      } else {
+        throw new Error("Failed to delete cat.");
+      }
+    });
+  }
