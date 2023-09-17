@@ -44,7 +44,10 @@ export const AdoptionList = () => {
                 }
             })
             .then(res => res.json())
-            .then(setAdoptions)
+            .then(data => {
+                console.log("Fetched adoptions:", data);  // Add this line
+                setAdoptions(data);
+            })
             .catch(error => {
                 console.error("Error fetching adoptions:", error);
             });
@@ -125,7 +128,9 @@ export const AdoptionList = () => {
                     {adoptions.map(adoption => (
                         <li key={adoption.id}>
                             <div><strong>Adopter Name:</strong> {adoption.profile.user.first_name} {adoption.profile.user.last_name}</div>
+                            <div><strong>Approved to Adopt:</strong> {adoption.profile.approved_to_adopt ? "Yes" : "No"}</div>
                             <div><strong>Cat:</strong> {adoption.cat.name}</div>
+                            <div><strong>Location:</strong> {adoption.cat.location.name}</div>
                             <div><strong>Adoption Date:</strong> {adoption.adoption_date}</div>
                             <div><strong>Status:</strong> {adoption.status}</div>
                             <button onClick={() => handleDelete(adoption.id)}>Delete</button>

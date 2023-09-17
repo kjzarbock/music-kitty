@@ -71,25 +71,14 @@ export const AdoptionForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
-    // Log the approved_to_adopt status to the console for debugging
-    console.log("User's approved_to_adopt status:", userInfo?.approved_to_adopt);
-  
-    // Check if the user is approved to adopt
-    if (userInfo?.approved_to_adopt) {
-      createAdoption(formData)
-        .then(() => {
-          alert('Adoption request submitted successfully!');
-        })
-        .catch((error) => {
-          alert('Failed to submit adoption request:', error);
-        });
-    } else {
-      // Show an alert if the user is not approved to adopt
-      window.alert('You must first make a reservation at the location to meet with staff to get approval.');
-    }
+    createAdoption(formData)
+      .then(() => {
+        alert('Adoption request submitted successfully! You must make a reservation to meet with staff to be approved to adopt.');
+      })
+      .catch((error) => {
+        alert('Failed to submit adoption request:', error);
+      });
   };
-  
 
   if (loadingUserInfo) {
     return <div>Loading...</div>;
