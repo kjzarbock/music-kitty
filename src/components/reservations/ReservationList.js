@@ -118,7 +118,7 @@ export const ReservationList = () => {
             id: reservation.id,
             profile: reservation.profile,
             date: reservation.date,
-            time: reservation.time, // This is already in 12-hour format for display
+            time: '', // Set this to an empty string initially
             number_of_guests: reservation.number_of_guests,
             location: reservation.location.id
         });
@@ -186,12 +186,13 @@ export const ReservationList = () => {
                     <h3>Edit Reservation</h3>
                     <label>Date: <input type="date" value={editingReservation.date} onChange={e => setEditingReservation({...editingReservation, date: e.target.value})} /></label>
                     <label>Time:
-                        <select value={editingReservation.time} onChange={e => setEditingReservation({...editingReservation, time: e.target.value})}>
-                            {timeSlots.map(time => (
-                                <option key={time} value={time}>{time}</option>
-                            ))}
-                        </select>
-                    </label>
+    <select value={editingReservation.time} onChange={e => setEditingReservation({...editingReservation, time: e.target.value})}>
+        {timeSlots.map(time => (
+            <option key={time} value={time}>{time}</option>
+        ))}
+    </select>
+</label>
+
                     <label>Number of Guests: <input type="number" value={editingReservation.number_of_guests} onChange={e => setEditingReservation({...editingReservation, number_of_guests: e.target.value})} /></label>
                     <button onClick={handleSave}>Save</button>
                 </div>
