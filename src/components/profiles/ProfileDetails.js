@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getSingleProfile } from '../../managers/ProfileManager';
+import { Link } from 'react-router-dom';
 import './Profiles.css'; // Import your CSS file for styling
 
 export const ProfileDetails = () => {
@@ -38,6 +39,7 @@ export const ProfileDetails = () => {
           <div className="profile-has-dogs">Has Dogs: {has_dogs ? 'Yes' : 'No'}</div>
           <div className="profile-has-children">Has Children: {has_children ? 'Yes' : 'No'}</div>
           <div className="profile-approved">Approved to Adopt: {approved_to_adopt ? 'Yes' : 'No'}</div>
+          <Link to="/profiles" className="location-profile-button">View Profiles</Link>
         </div>
       </div>
     </div>

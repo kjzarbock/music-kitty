@@ -27,3 +27,40 @@ export const getSingleProfile = (profileId) => {
     })
     .then(res => res.json());
 };
+
+export const getMyProfile = () => {
+    return fetch(`http://localhost:8000/profiles/me`, {
+    headers: getAuthHeaders()
+    })
+    .then(res => res.json());
+}
+
+export const updateUserProfile = (profileId, updatedProfile) => {
+    return fetch(`http://localhost:8000/profiles/${profileId}`, {
+        method: "PUT",
+        headers: getAuthHeaders(),
+        body: JSON.stringify(updatedProfile),
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Failed to update profile.");
+        }
+    });
+}
+
+export const updateMyProfile = (profileId, updatedProfile) => {
+    return fetch(`http://localhost:8000/profiles/me`, {
+      method: "PUT",
+      headers: getAuthHeaders(),
+      body: JSON.stringify(updatedProfile),
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Failed to update profile.");
+      }
+    });
+  }
