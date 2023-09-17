@@ -88,3 +88,17 @@ const getAuthHeaders = () => {
       }
     });
   }
+
+  export const getCatsByLocation = (location) => {
+    return fetch(`http://localhost:8000/cats?location=${location}`, {
+      headers: getAuthHeaders()
+    })
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error("Failed to fetch cats by location.");
+      }
+    });
+  };
+  

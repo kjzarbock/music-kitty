@@ -44,6 +44,9 @@ export const NavBar = () => {
                         <li className="navbar__item">
                             <Link className="navbar__link" to="/profiles" onClick={() => setIsOpen(false)}>Manage Profile</Link>
                         </li>
+                        <li className="navbar__item">
+                            <Link className="navbar__link" to="/profile-adoptions" onClick={() => setIsOpen(false)}>Adoptions</Link>
+                        </li>
                         <li className="navbar__item navbar__logout">
                             <Link className="navbar__link" to="" onClick={handleLogout}>Logout</Link>
                         </li>
