@@ -4,6 +4,8 @@ import { getCatsByLocation } from '../../managers/CatManager';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
 import { Link } from 'react-router-dom';
+
+// Import the AdoptionList component
 import { AdoptionList } from './AdoptionList'; // Update the import path to match your project structure
 
 export const AdoptionForm = () => {
@@ -34,6 +36,15 @@ export const AdoptionForm = () => {
     setUserInfo(localUser);
     setLoadingUserInfo(false);
   }, []);
+
+  useEffect(() => {
+    // Fetch user info (You may need to replace this with your own user fetching logic)
+    const localUser = JSON.parse(localStorage.getItem("kitty_user"));
+    setUserInfo(localUser);
+    console.log("User Info:", localUser); // Add this line to log userInfo
+    setLoadingUserInfo(false);
+  }, []);
+  
 
   useEffect(() => {
     const cat = cats.find((cat) => cat.id === parseInt(formData.cat_id));
@@ -72,7 +83,7 @@ export const AdoptionForm = () => {
         setFormData(initialFormData); // Clear the form after submission
       })
       .catch((error) => {
-        alert('Failed to submit adoption request:', error);
+        alert('You have already submitted an adoption request for this cat!');
       });
   };
 
@@ -80,7 +91,7 @@ export const AdoptionForm = () => {
     <>
       {loadingUserInfo ? (
         <div>Loading user info...</div>
-      ) : userInfo && userInfo.is_Staff ? ( 
+      ) : userInfo && userInfo.staff ? ( // Render AdoptionList if user is staff
         <AdoptionList />
       ) : (
         <div>
@@ -158,9 +169,9 @@ export const AdoptionForm = () => {
           )}
         </div>
       )}
-      <div>
-        <Link to="/my-adoptions">View My Adoption Requests</Link>
-      </div>
+<div>
+    {!userInfo || !userInfo.staff ? <Link to="/my-adoptions">View My Adoption Requests</Link> : null}
+</div>
       <Background />
     </>
   );

@@ -170,9 +170,11 @@ export const AdoptionList = () => {
                     ))}
                 </ul>
             )}
-            <div>
-      <Link to="/profile-adoptions">Create another adoption Request!</Link>
-    </div>
+            {!staff && (
+                <div>
+                    <Link to="/profile-adoptions">Create another adoption Request!</Link>
+                </div>
+            )}
         </div>
         <Background />
         </>

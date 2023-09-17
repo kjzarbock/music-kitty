@@ -22,7 +22,7 @@ export const CatDetails = ({ catId: catIdProp }) => {
 
   const handleUpdateCat = (updatedCat) => {
     setCat(updatedCat);
-    setIsEditing(false); // Close the edit form
+    setIsEditing(false); 
   };
 
   const handleDelete = () => {

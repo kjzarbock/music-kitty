@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
+import { Link } from 'react-router-dom';
 
 export const ReservationList = () => {
     const [reservations, setReservations] = useState([]);
@@ -11,13 +12,13 @@ export const ReservationList = () => {
 
     const localUser = JSON.parse(localStorage.getItem("kitty_user"));
     const staff = localUser?.staff;
-    
+
     const timeSlots = [];
     let currentTime = new Date();
     currentTime.setHours(11, 0, 0, 0); // Start at 11:00 AM
     const endTime = new Date();
     endTime.setHours(20, 0, 0, 0); // End at 8:00 PM
-    
+
     while (currentTime <= endTime) {
         const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         timeSlots.push(formattedTime);
@@ -75,15 +76,15 @@ export const ReservationList = () => {
     const convertTo24HourFormat = (time12Hour) => {
         const [time, modifier] = time12Hour.split(' ');
         let [hours, minutes] = time.split(':');
-        
+
         if (hours === '12') {
             hours = '00';
         }
-        
+
         if (modifier === 'PM') {
             hours = parseInt(hours, 10) + 12;
         }
-        
+
         return `${hours}:${minutes}`;
     };
 
@@ -123,59 +124,58 @@ export const ReservationList = () => {
         });
     };
 
-const handleSave = () => {
-    const updatedReservation = {
-        id: editingReservation.id,
-        location: parseInt(editingReservation.location, 10),
-        date: editingReservation.date,
-        time: convertTo24HourFormat(editingReservation.time), // Convert to 24-hour format
-        number_of_guests: parseInt(editingReservation.number_of_guests, 10)
-    };
+    const handleSave = () => {
+        const updatedReservation = {
+            id: editingReservation.id,
+            location: parseInt(editingReservation.location, 10),
+            date: editingReservation.date,
+            time: convertTo24HourFormat(editingReservation.time), // Convert to 24-hour format
+            number_of_guests: parseInt(editingReservation.number_of_guests, 10)
+        };
 
-    const localUser = JSON.parse(localStorage.getItem("kitty_user"));
-    const token = localUser?.token;
+        const localUser = JSON.parse(localStorage.getItem("kitty_user"));
+        const token = localUser?.token;
 
-    if (token) {
-        fetch(`http://localhost:8000/reservations/${editingReservation.id}`, {
-            method: "PUT",
-            headers: {
-                "Authorization": `Token ${token}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(updatedReservation)
-        })
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
-            }
-            if (res.status === 204) {
-                return null;  // No content to parse
-            }
-            return res.json();
-        })
-        .then(data => {
-            // Update the local state with the updated reservation
-            setReservations(prevReservations => prevReservations.map(reservation => {
-                if (reservation.id === editingReservation.id) {
-                    return {
-                        ...reservation,
-                        location: locations.find(loc => loc.id === updatedReservation.location),
-                        date: updatedReservation.date,
-                        time: formatTime(updatedReservation.time),
-                        number_of_guests: updatedReservation.number_of_guests
-                    };
+        if (token) {
+            fetch(`http://localhost:8000/reservations/${editingReservation.id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Token ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedReservation)
+            })
+            .then(res => {
+                if (!res.ok) {
+                    throw new Error(`HTTP error! Status: ${res.status}`);
                 }
-                return reservation;
-            }));
-            setIsEditing(false);
-            setEditingReservation(null);
-        })
-        .catch(error => {
-            console.error("Error updating reservation:", error);
-        });
-    }
-};
-
+                if (res.status === 204) {
+                    return null;  // No content to parse
+                }
+                return res.json();
+            })
+            .then(data => {
+                // Update the local state with the updated reservation
+                setReservations(prevReservations => prevReservations.map(reservation => {
+                    if (reservation.id === editingReservation.id) {
+                        return {
+                            ...reservation,
+                            location: locations.find(loc => loc.id === updatedReservation.location),
+                            date: updatedReservation.date,
+                            time: formatTime(updatedReservation.time),
+                            number_of_guests: updatedReservation.number_of_guests
+                        };
+                    }
+                    return reservation;
+                }));
+                setIsEditing(false);
+                setEditingReservation(null);
+            })
+            .catch(error => {
+                console.error("Error updating reservation:", error);
+            });
+        }
+    };
 
     return (
         <>
@@ -210,10 +210,11 @@ const handleSave = () => {
                     ))}
                 </ul>
             )}
+            {!staff && (
+                <Link to="/reservations">Create Another Reservation</Link>
+            )}
         </div>
         <Background />
         </>
     );
 };
-
-
