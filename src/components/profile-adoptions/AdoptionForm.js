@@ -17,6 +17,7 @@ export const AdoptionForm = () => {
   const [userInfo, setUserInfo] = useState(null);
   const [loadingUserInfo, setLoadingUserInfo] = useState(true);
   const [selectedCat, setSelectedCat] = useState(null); // Track the selected cat
+  const [submittedCats, setSubmittedCats] = useState(new Set()); // New state variable
 
   useEffect(() => {
     // Fetch locations
@@ -26,13 +27,9 @@ export const AdoptionForm = () => {
         console.error("Failed to fetch locations:", error);
       });
 
-    // Fetch user info here
-    // ...
   }, []);
 
-  // Moved the nested useEffect here
   useEffect(() => {
-    // If formData.cat_id changes, we'll update selectedCat as well
     const cat = cats.find((cat) => cat.id === parseInt(formData.cat_id));
     setSelectedCat(cat);
   }, [formData.cat_id, cats]);
@@ -55,9 +52,20 @@ export const AdoptionForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (submittedCats.has(formData.cat_id)) {  // Check if this cat is already submitted
+      alert("You've already submitted an adoption request for this cat!");
+      return;
+    }
+  
     createAdoption(formData)
       .then(() => {
-        alert('Adoption request submitted successfully! You must make a reservation to meet with staff to be approved to adopt.');
+        // Get the selected cat's name
+        const selectedCatName = selectedCat ? selectedCat.name : 'Unknown Cat';
+        // Get the selected location's name
+        const selectedLocationName = locations.find(location => location.name === selectedLocation)?.name || 'Unknown Location';
+        // Display the alert with cat's name and location name
+        alert(`Adoption request for ${selectedCatName} submitted successfully! You must make a reservation at ${selectedLocationName} to be approved to adopt by a staff member.`);
+        setSubmittedCats(new Set([...submittedCats, formData.cat_id])); // Update the list of submitted cats
       })
       .catch((error) => {
         alert('Failed to submit adoption request:', error);
@@ -144,7 +152,7 @@ export const AdoptionForm = () => {
   </div>
 )}
     <div>
-      <Link to="/my-adoptions">View My Reservations</Link>
+      <Link to="/my-adoptions">View My Adoption Requests</Link>
     </div>
     <Background />
     </>

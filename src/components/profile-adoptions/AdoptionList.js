@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
+import { Link } from 'react-router-dom';
 
 export const AdoptionList = () => {
     const [adoptions, setAdoptions] = useState([]);
@@ -169,6 +170,9 @@ export const AdoptionList = () => {
                     ))}
                 </ul>
             )}
+            <div>
+      <Link to="/profile-adoptions">Create another adoption Request!</Link>
+    </div>
         </div>
         <Background />
         </>
