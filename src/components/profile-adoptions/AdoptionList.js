@@ -8,6 +8,7 @@ export const AdoptionList = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingAdoption, setEditingAdoption] = useState(null);
     const [title, setTitle] = useState("My Adoptions");
+    const [searchQuery, setSearchQuery] = useState("");
 
     const localUser = JSON.parse(localStorage.getItem("kitty_user"));
     const staff = localUser?.staff;
@@ -29,10 +30,10 @@ export const AdoptionList = () => {
     const fetchAdoptions = () => {
         const localUser = JSON.parse(localStorage.getItem("kitty_user"));
         const token = localUser?.token;
-        let endpoint = 'http://localhost:8000/profile-adoptions'; // Default endpoint for regular users
+        let endpoint = 'http://localhost:8000/profile-adoptions';
     
         if (staff) {
-            endpoint = 'http://localhost:8000/profile-adoptions'; // Endpoint for staff to see all adoptions
+            endpoint = 'http://localhost:8000/profile-adoptions';
         }
     
         if (token) {
@@ -44,15 +45,23 @@ export const AdoptionList = () => {
                 }
             })
             .then(res => res.json())
-            .then(data => {
-                console.log("Fetched adoptions:", data);  // Add this line
-                setAdoptions(data);
-            })
+            .then(setAdoptions)
             .catch(error => {
                 console.error("Error fetching adoptions:", error);
             });
         }
     };
+
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value.toLowerCase());
+    };
+
+    const filteredAdoptions = adoptions.filter(adoption => {
+        const adopterName = `${adoption.profile.user.first_name} ${adoption.profile.user.last_name}`.toLowerCase();
+        const catName = adoption.cat.name.toLowerCase();
+        const locationName = adoption.cat.location.name.toLowerCase();
+        return adopterName.includes(searchQuery) || catName.includes(searchQuery) || locationName.includes(searchQuery);
+    });
     
 
     const handleDelete = (adoptionId) => {
@@ -117,6 +126,12 @@ export const AdoptionList = () => {
         <>
         <div>
             <h2>{title}</h2>
+            <input
+                type="text"
+                placeholder="Adopter, cat name, location"
+                value={searchQuery}
+                onChange={handleSearch}
+            />
             {isEditing ? (
                 <div>
                     <h3>Edit Adoption</h3>
@@ -125,7 +140,7 @@ export const AdoptionList = () => {
                 </div>
             ) : (
                 <ul>
-                    {adoptions.map(adoption => (
+                    {filteredAdoptions.map(adoption => (
                         <li key={adoption.id}>
                             <div><strong>Adopter Name:</strong> {adoption.profile.user.first_name} {adoption.profile.user.last_name}</div>
                             <div><strong>Approved to Adopt:</strong> {adoption.profile.approved_to_adopt ? "Yes" : "No"}</div>
