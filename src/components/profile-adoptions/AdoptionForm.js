@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { createAdoption } from '../../managers/ProfileAdoptionManager';
 import { getCatsByLocation } from '../../managers/CatManager';
 import { getLocations } from '../../managers/LocationManager';
-import { AdoptionList } from './AdoptionList'; 
 import { Background } from '../background/Background';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +16,7 @@ export const AdoptionForm = () => {
   const [selectedLocation, setSelectedLocation] = useState('');
   const [userInfo, setUserInfo] = useState(null);
   const [loadingUserInfo, setLoadingUserInfo] = useState(true);
+  const [selectedCat, setSelectedCat] = useState(null); // Track the selected cat
 
   useEffect(() => {
     // Fetch locations
@@ -26,32 +26,16 @@ export const AdoptionForm = () => {
         console.error("Failed to fetch locations:", error);
       });
 
-    // Fetch user info
-    const localUser = JSON.parse(localStorage.getItem("kitty_user"));
-    const token = localUser?.token;
-    if (token) {
-      fetch(`http://localhost:8000/profiles/me/`, {
-        method: "GET",
-        headers: {
-          "Authorization": `Token ${token}`,
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        setUserInfo(data);
-        setLoadingUserInfo(false);
-      })
-      .catch(error => {
-        console.error("Error fetching user information:", error);
-        setUserInfo(localUser);
-        setLoadingUserInfo(false);
-      });
-    } else {
-      setUserInfo(localUser);
-      setLoadingUserInfo(false);
-    }
+    // Fetch user info here
+    // ...
   }, []);
+
+  // Moved the nested useEffect here
+  useEffect(() => {
+    // If formData.cat_id changes, we'll update selectedCat as well
+    const cat = cats.find((cat) => cat.id === parseInt(formData.cat_id));
+    setSelectedCat(cat);
+  }, [formData.cat_id, cats]);
 
   useEffect(() => {
     getCatsByLocation(selectedLocation)
@@ -80,75 +64,89 @@ export const AdoptionForm = () => {
       });
   };
 
-  if (loadingUserInfo) {
-    return <div>Loading...</div>;
-  }
-
-  if (userInfo?.user?.is_staff) {
-    return <AdoptionList />;
-  } else {
-    return (
-      <>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Select Location:
-            <select
-              name="location"
-              value={selectedLocation}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-            >
-              <option value="" disabled>Select a location</option>
-              {locations.map((location) => (
-                <option key={location.id} value={location.name}>
-                  {location.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Select Cat:
-            <select
-              name="cat_id"
-              value={formData.cat_id}
-              onChange={handleChange}
-              required
-            >
-              <option value="" disabled>Select a cat</option>
-              {cats.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Adoption Request Date:
-            <input
-              type="date"
-              name="adoption_date"
-              value={formData.adoption_date}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <label>
-            Status:
-            <input
-              type="text"
-              name="status"
-              value={formData.status}
-              readOnly
-            />
-          </label>
-          <button type="submit">Submit Adoption Request</button>
-        </form>
-      </div>
-      <div>
-        <Link to="/my-adoptions">View My Reservations</Link>
-        </div>
-      <Background />
-      </>
-    );
-  }
+  return (
+    <>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Select Location:
+          <select
+            name="location"
+            value={selectedLocation}
+            onChange={(e) => setSelectedLocation(e.target.value)}
+          >
+            <option value="" disabled>Select a location</option>
+            {locations.map((location) => (
+              <option key={location.id} value={location.name}>
+                {location.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Select Cat:
+          <select
+            name="cat_id"
+            value={formData.cat_id}
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled>Select a cat</option>
+            {cats.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Adoption Request Date:
+          <input
+            type="date"
+            name="adoption_date"
+            value={formData.adoption_date}
+            onChange={handleChange}
+            required
+          />
+        </label>
+        <label>
+          Status:
+          <input
+            type="text"
+            name="status"
+            value={formData.status}
+            readOnly
+          />
+        </label>
+        <button type="submit">Submit Adoption Request</button>
+      </form>
+    </div>
+    {/* Display selected cat details if available */}
+    {selectedCat && (
+  <div>
+    <h2>Cat Details about {selectedCat.name}</h2>
+    {selectedCat.image && (
+      <img
+      src={selectedCat.image}
+      alt={`Image of ${selectedCat.name}`}
+      style={{ maxWidth: '100%' }}
+      />
+      )}
+    {/* Display compatibility information */}
+    <p>Age: {selectedCat.age}</p>
+    <p>Sex: {selectedCat.sex}</p>
+    <p>Bio: {selectedCat.bio}</p>
+    <h3>Compatibility</h3>
+    <p>Gets Along with Cats: {selectedCat.gets_along_with_cats ? 'Yes' : 'No'}</p>
+    <p>Gets Along with Dogs: {selectedCat.gets_along_with_dogs ? 'Yes' : 'No'}</p>
+    <p>Gets Along with Children: {selectedCat.gets_along_with_children ? 'Yes' : 'No'}</p>
+    {/* Add more cat details as needed */}
+  </div>
+)}
+    <div>
+      <Link to="/my-adoptions">View My Reservations</Link>
+    </div>
+    <Background />
+    </>
+  );
 };
