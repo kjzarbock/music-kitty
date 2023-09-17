@@ -40,6 +40,7 @@ export const ProfileList = () => {
       <>
         <div className="profile-page-container">
           <h1 className="page-header">Profile List</h1>
+          <h2><Link to="/profiles/me" className="location-profile-button">Edit My Profile</Link></h2>
           <input
             type="text"
             placeholder="Search by name..."

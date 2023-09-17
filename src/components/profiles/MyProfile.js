@@ -4,6 +4,7 @@ import { getMyProfile, updateMyProfile } from '../../managers/ProfileManager';
 import './Profiles.css';
 import { Link } from 'react-router-dom';
 import { Background } from '../background/Background';
+import { getProfiles } from '../../managers/ProfileManager';
 
 export const MyProfile = () => {
   const { profileId } = useParams();
@@ -11,6 +12,21 @@ export const MyProfile = () => {
   const [error, setError] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({});
+  const [profiles, setProfiles] = useState([]);
+  const [filteredProfiles, setFilteredProfiles] = useState([]);
+  const [isStaff, setIsStaff] = useState(false);
+
+  useEffect(() => {
+    getProfiles()
+      .then((data) => {
+        setProfiles(data);
+        setFilteredProfiles(data);
+      })
+      .catch((error) => setError(error));
+
+    const localUser = JSON.parse(localStorage.getItem("kitty_user")) || {};
+    setIsStaff(localUser.staff || false);
+  }, []);
 
   useEffect(() => {
     getMyProfile(profileId)
@@ -102,10 +118,11 @@ export const MyProfile = () => {
               <div className="profile-has-dogs">Has Dogs: {has_dogs ? 'Yes' : 'No'}</div>
               <div className="profile-has-children">Has Children: {has_children ? 'Yes' : 'No'}</div>
               <div className="profile-approved">Approved to Adopt: {profile.approved_to_adopt ? 'Yes' : 'No'}</div>
-              <button onClick={handleEditClick}>Edit</button> {/* Show the "Edit" button */}
+              {isStaff && <button onClick={handleEditClick}>Edit</button>} {/* Show the "Edit" button */}
             </div>
           )}
-          <Link to="/" className="location-profile-button">Back to Home</Link>
+{!isStaff && <Link to="/" className="location-profile-button">Back to Home</Link>}
+{isStaff && <Link to="/profiles" className="location-profile-button">View Profiles</Link>}
         </div>
       </div>
     </div>
