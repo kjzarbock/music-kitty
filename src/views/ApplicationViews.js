@@ -15,6 +15,7 @@ import { ProfileList } from "../components/profiles/ProfileList";
 import { ProfileDetails } from "../components/profiles/ProfileDetails";
 import { MyProfile } from "../components/profiles/MyProfile";
 import { AdoptionForm } from "../components/profile-adoptions/AdoptionForm";
+import { AdoptionList } from "../components/profile-adoptions/AdoptionList";
 
 export const ApplicationViews = ({ token, setToken }) => {
     return (
@@ -39,6 +40,7 @@ export const ApplicationViews = ({ token, setToken }) => {
                 <Route path="/profiles/:profileId" element={<ProfileDetails setToken={setToken} />} />
                 <Route path="/profiles/me" element={<MyProfile setToken={setToken} />} />
                 <Route path="/profile-adoptions" element={<AdoptionForm setToken={setToken} />} />
+                <Route path="/my-adoptions" element={<AdoptionList setToken={setToken} />} />
               </Routes>
             </Authorized>
           } 
