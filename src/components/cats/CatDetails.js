@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { getSingleCat } from '../../managers/CatManager';
+import { Background } from '../background/Background';
 
 export const CatDetails = ({ catId: catIdProp }) => {
   const [cat, setCat] = useState({});
@@ -17,6 +18,7 @@ export const CatDetails = ({ catId: catIdProp }) => {
   }, [catId]);
 
   return (
+    <>
     <section className="post">
         <div className="user-list-name">Name: {cat.name}</div>
         <img src={cat.image} alt={cat.name} />
@@ -32,5 +34,7 @@ export const CatDetails = ({ catId: catIdProp }) => {
         <div>Gets along with children: {cat.gets_along_with_children ? 'Yes' : 'No'}</div>
         <Link to={`/cats`} className="cat-profile-button">Back to all Cats</Link>
     </section>
+    <Background />
+    </>
   );
 };

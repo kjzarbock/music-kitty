@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCats } from "../../managers/CatManager";
 import { Link } from 'react-router-dom';
+import { Background } from '../background/Background';
 
 export const CatList = () => {
     const [cats, setCats] = useState([]);
@@ -12,6 +13,7 @@ export const CatList = () => {
     }, []); 
 
     return (
+        <>
         <div>
             <h2>List of Cats</h2>
             <ul>
@@ -31,6 +33,8 @@ export const CatList = () => {
                 ))}
             </ul>
         </div>
+        <Background />
+        </>
     );
 };
 

@@ -224,9 +224,6 @@ body {
     gap: 1rem;  /* creates a gap between the label and input */
 }
 
-
-
-
 @keyframes animate {
 
     0%{
@@ -242,4 +239,7 @@ body {
     }
 
 }
-
+.link--login:hover {
+    color: white !important;
+    font-weight: bold !important;
+}

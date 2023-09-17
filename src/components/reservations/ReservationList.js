@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getLocations } from '../../managers/LocationManager';
+import { Background } from '../background/Background';
 
 export const ReservationList = () => {
     const [reservations, setReservations] = useState([]);
@@ -177,6 +178,7 @@ const handleSave = () => {
 
 
     return (
+        <>
         <div>
             <h2>{title}</h2>
             {isEditing ? (
@@ -209,6 +211,8 @@ const handleSave = () => {
                 </ul>
             )}
         </div>
+        <Background />
+        </>
     );
 };
 

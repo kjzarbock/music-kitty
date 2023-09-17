@@ -91,7 +91,7 @@ export const Login = () => {
                             </button>
                         </fieldset>
                 <section className="link--register">
-                    <Link to="/register">Not a member yet?</Link>
+                <Link to="/register" style={{ color: 'white', fontWeight: 'bold' }}>Not a member yet?</Link>
                 </section>
                     </form>
                 </section>

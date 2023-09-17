@@ -4,10 +4,20 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
+  color: white;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: #ffffff; /* Make links white */
+  text-decoration: underline; /* Remove underline */
+}
+
+a:hover {
+  color: #b19cd9; /* Change to light purple when hovered */
 }
