@@ -56,15 +56,23 @@ export const updateUserProfile = (profileId, updatedProfile) => {
 export const updateMyProfile = (profileId, updatedProfile) => {
     return fetch(`http://localhost:8000/profiles/me`, {
       method: "PUT",
-      headers: getAuthHeaders(),
+      headers: {
+        ...getAuthHeaders(),
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify(updatedProfile),
     })
-    .then((response) => {
+    .then(async (response) => {
+      const data = await response.json();
       if (response.ok) {
-        return response.json();
+        return data;
       } else {
+        console.error("Server Error:", data);
         throw new Error("Failed to update profile.");
       }
+    })
+    .catch((error) => {
+      console.error("Fetch Error:", error);
     });
   }
 
