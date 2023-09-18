@@ -2,7 +2,7 @@
 
 ## Overview
 
-Welcome to Music Kitty, an app designed for a cat cafe in Nashville. This app serves as a one-stop solution for both customers and staff. Customers can view locations, learn about the cats, browse products, make reservations, and even request adoptions. Staff members can manage cats, products, reservations, and adoption requests.
+Welcome to Music Kitty, an app designed for a cat cafe in Nashville. This app serves as a one-stop solution for both customers and staff. Customers can view locations, learn about the cats, browse products, make reservations, and even request adoptions. Staff members can manage cats, products, reservations, and adoption requests.  
 
 ## Features
 
@@ -11,7 +11,7 @@ Welcome to Music Kitty, an app designed for a cat cafe in Nashville. This app se
 - **Product Catalog**: Browse through a variety of products.
 - **Reservations**: Book your visit to the cafe.
 - **Adoption Requests**: Interested in adopting? Send a request.
-- **Staff Management**: Add or edit cat details, manage products, and handle reservations and adoption requests.
+- **Staff Management**: Add or edit cat details, manage products, and handle reservations, staff status and adoption requests.
 
 ## Prerequisites
 
