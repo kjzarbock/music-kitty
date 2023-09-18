@@ -67,3 +67,12 @@ export const updateMyProfile = (profileId, updatedProfile) => {
       }
     });
   }
+
+  export const toggleStaffStatus = (profileId) => {
+    return fetch(`http://localhost:8000/profiles/${profileId}/set_staff_status/`, {
+      method: 'PUT',
+      headers: getAuthHeaders(),
+    })
+    .then(response => response.json())
+    .catch(error => console.error("Error:", error));
+  };

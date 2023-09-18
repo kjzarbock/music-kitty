@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getSingleProfile, updateUserProfile } from '../../managers/ProfileManager'; // Import your update function
+import { getSingleProfile, updateUserProfile, toggleStaffStatus } from '../../managers/ProfileManager'; // Import your update function
 import { Link } from 'react-router-dom';
 import './Profiles.css';
 import { Background } from '../background/Background';
@@ -31,6 +31,16 @@ export const ProfileDetails = () => {
       });
   };
 
+const handleStaffToggle = () => {
+  toggleStaffStatus(profileId)
+    .then(() => {
+      fetchProfile();  // Re-fetch the profile to update the UI
+    })
+    .catch((error) => {
+      console.error("Failed to update staff status:", error);
+    });
+};
+
   if (error) {
     return <div>Error loading profile: {error.message}</div>;
   }
@@ -56,7 +66,9 @@ export const ProfileDetails = () => {
             <div className="profile-has-dogs">Has Dogs: {has_dogs ? 'Yes' : 'No'}</div>
             <div className="profile-has-children">Has Children: {has_children ? 'Yes' : 'No'}</div>
             <div className="profile-approved">Approved to Adopt: {approved_to_adopt ? 'Yes' : 'No'}</div>
-            <button onClick={handleApprovalToggle}>Toggle Approval</button> 
+            <button onClick={handleApprovalToggle}>Toggle Approval</button>
+            <div className="profile-staff">Is Staff: {profile.user.is_staff ? 'Yes' : 'No'}</div>
+            <button onClick={handleStaffToggle}>Toggle Staff Status</button>
             <br></br>
             <Link to="/profiles" className="location-profile-button">View Profiles</Link>
           </div>

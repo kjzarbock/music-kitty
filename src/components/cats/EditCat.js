@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { updateCat } from '../../managers/CatManager';
 
-export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
+export const EditCat = ({ cat, onClose, onUpdateCat }) => {
   const [updatedCat, setUpdatedCat] = useState({ ...cat });
 
   const handleInputChange = (e) => {
@@ -16,7 +16,7 @@ export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     // Create the correct payload with the 'id' field
     const updatedCatPayload = {
       id: updatedCat.id, // Ensure 'id' is included
@@ -31,29 +31,24 @@ export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
       gets_along_with_dogs: updatedCat.gets_along_with_dogs,
       gets_along_with_children: updatedCat.gets_along_with_children,
     };
-
+  
     console.log('updatedCatPayload:', updatedCatPayload);
-
+  
     updateCat(cat.id, updatedCatPayload)
       .then((response) => {
         if (response !== null) {
-          // Cat updated successfully, you can handle success here
-          console.log('Cat updated:', response);
-          onUpdate(updatedCatPayload); // Pass the updated cat data to the parent component
-          setCat((prevCat) => ({
-            ...prevCat,
-            ...updatedCat, // Merge updatedCat properties into prevCat
-          }));
-          onClose(); // Close the edit form
+          onUpdateCat(updatedCatPayload);
+          onClose(); 
         } else {
+          console.error('Error updating cat.');
         }
       })
       .catch((error) => {
         console.error('Error updating cat:', error);
       });
-  };
-
-
+      window.location.reload();
+    };
+  
   return (
     <div className="edit-cat-form">
       <h2>Edit Cat</h2>
@@ -77,6 +72,13 @@ export const EditCat = ({ cat, onClose, onUpdate, setCat }) => {
           type="number"
           name="age"
           value={updatedCat.age}
+          onChange={handleInputChange}
+        />
+        <label>Sex:</label>
+        <input
+          type="text"
+          name="sex"
+          value={updatedCat.sex}
           onChange={handleInputChange}
         />
         <label>Bio:</label>

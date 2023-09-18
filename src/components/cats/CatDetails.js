@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { getSingleCat, updateCat, deleteCat } from '../../managers/CatManager';
+import { getSingleCat, deleteCat } from '../../managers/CatManager';
 import { Background } from '../background/Background';
 import { EditCat } from './EditCat';
 
@@ -20,19 +20,9 @@ export const CatDetails = ({ catId: catIdProp }) => {
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const handleCatUpdate = (updatedCat) => {
-    updateCat(cat.id, updatedCat)
-      .then((response) => {
-        if (response !== null) {
-          setCat(updatedCat);
-          setIsEditing(false);
-        } else {
-          console.error('Failed to update cat.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error updating cat:', error);
-      });
+  const handleUpdateCat = (updatedCat) => {
+    setCat(updatedCat);
+    setIsEditing(false); // Close the edit form
   };
 
   const handleDelete = () => {
@@ -74,9 +64,8 @@ export const CatDetails = ({ catId: catIdProp }) => {
       </section>
       
       {isEditing && (
-        <EditCat cat={cat} onClose={() => setIsEditing(false)} onUpdate={handleCatUpdate} />
+        <EditCat cat={cat} onClose={() => setIsEditing(false)} onUpdateCat={handleUpdateCat} />
       )}
-      
       <Background />
     </>
   );

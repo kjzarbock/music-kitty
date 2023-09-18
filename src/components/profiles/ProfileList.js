@@ -62,6 +62,7 @@ export const ProfileList = () => {
                       <div className="profile-has-dogs">Has Dogs: {has_dogs ? 'Yes' : 'No'}</div>
                       <div className="profile-has-children">Has Children: {has_children ? 'Yes' : 'No'}</div>
                       <div className="profile-approved">Approved to Adopt: {approved_to_adopt ? 'Yes' : 'No'}</div>
+                      <div className="profile-staff">Staff: {user.is_staff ? 'Yes' : 'No'}</div>
                       <Link to={`/profiles/${user.id}`} className="location-profile-button">View Profile</Link>
                     </div>
                   </div>
