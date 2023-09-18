@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AddProduct } from "./AddProduct";
 import "./Products.css";
 import { Background } from "../background/Background";
+import { deleteProduct } from "../../managers/ProductManager";
 
 export const ProductList = () => {
     const [products, setProducts] = useState([]);
@@ -26,10 +27,22 @@ export const ProductList = () => {
 
     const isStaff = user && user.staff; // Check if the user is staff
 
-    // Define a function to handle product deletion
     const handleDeleteProduct = (productId) => {
-        // Implement the logic for deleting the product here, you can use the deleteProduct function
-        // After successful deletion, you may want to refresh the product list
+        // Call deleteProduct to delete the product by ID
+        deleteProduct(productId)
+            .then(() => {
+                // If deletion is successful, refresh the product list
+                getProducts()
+                    .then(data => {
+                        setProducts(data);
+                    })
+                    .catch(error => {
+                        setError(error.message);
+                    });
+            })
+            .catch(error => {
+                console.error("Error deleting product:", error);
+            });
     };
 
     return (
@@ -60,9 +73,6 @@ export const ProductList = () => {
                             )}
                             {isStaff && (
                                 <div className="product-actions">
-                                    <Link to={`/products/${product.id}`} className="edit-button">
-                                        Edit
-                                    </Link>
                                     <button
                                         className="delete-button"
                                         onClick={() => handleDeleteProduct(product.id)}

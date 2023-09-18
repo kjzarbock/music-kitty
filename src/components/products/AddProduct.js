@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { addProduct } from "../../managers/ProductManager";
 import { getLocations } from "../../managers/LocationManager"; // Import getLocations function
 import Select from "react-select"; // Import react-select
+import "./AddProduct.css";
 
 export const AddProduct = () => {
   const [product, setProduct] = useState({
@@ -93,13 +94,13 @@ const handleSubmit = (e) => {
           onChange={handleInputChange}
         />
       </label>
-      {/* Multi-select dropdown for locations */}
       <label>
         Locations:
         <Select
           options={locationOptions}
           isMulti
           onChange={handleLocationChange}
+          className="custom-select"
         />
       </label>
       <button type="submit">Add Product</button>

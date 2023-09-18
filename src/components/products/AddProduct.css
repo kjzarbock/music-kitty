@@ -1,0 +1,21 @@
+/* AddProduct.css */
+.custom-select {
+    background-color:  rgb(138, 125, 209);
+    color:  rgb(138, 125, 209); 
+    border: 1px solid  rgb(138, 125, 209)
+  }
+  
+  .custom-select .css-1hwfws3 {
+    background-color:  rgb(138, 125, 209) ;/* Set the background color for selected items */
+  }
+  
+  .custom-select .css-26l3qy-menu {
+    background-color:  rgb(138, 125, 209); 
+    color: rgb(138, 125, 209); 
+  }
+  
+  .custom-select .css-1wy0on6 {
+    background-color:  rgb(138, 125, 209); 
+    color:  rgb(138, 125, 209)                                                   ; 
+  }
+  
