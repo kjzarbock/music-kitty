@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
 import { Link } from 'react-router-dom';
+import './ReservationList.css'
 
 export const ReservationList = () => {
     const [reservations, setReservations] = useState([]);
@@ -183,37 +184,36 @@ export const ReservationList = () => {
         <div>
             <h2>{title}</h2>
             {isEditing ? (
-                <div>
+                <div className="reservation-details-edit">
                     <h3>Edit Reservation</h3>
                     <label>Date: <input type="date" value={editingReservation.date} onChange={e => setEditingReservation({...editingReservation, date: e.target.value})} /></label>
                     <label>Time:
-    <select value={editingReservation.time} onChange={e => setEditingReservation({...editingReservation, time: e.target.value})}>
-        {timeSlots.map(time => (
-            <option key={time} value={time}>{time}</option>
-        ))}
-    </select>
-</label>
-
+                        <select value={editingReservation.time} onChange={e => setEditingReservation({...editingReservation, time: e.target.value})}>
+                            {timeSlots.map(time => (
+                                <option key={time} value={time}>{time}</option>
+                            ))}
+                        </select>
+                    </label>
                     <label>Number of Guests: <input type="number" value={editingReservation.number_of_guests} onChange={e => setEditingReservation({...editingReservation, number_of_guests: e.target.value})} /></label>
                     <button onClick={handleSave}>Save</button>
                 </div>
             ) : (
-                <ul>
+                <div className="reservation-details-container">
                     {reservations.map(reservation => (
-                        <li key={reservation.id}>
-                            <div><strong>Guest Name:</strong> {reservation.profile.user.first_name} {reservation.profile.user.last_name}</div>
-                            <div><strong>Location:</strong> {reservation.location.name}</div>
+                        <div className="reservation-details" key={reservation.id}>
+                            <div className="reservation-list-name"><strong>Guest Name:</strong> {reservation.profile.user.first_name} {reservation.profile.user.last_name}</div>
+                            <div className="reservation-list-location"><strong>Location:</strong> {reservation.location.name}</div>
                             <div><strong>Date:</strong> {reservation.date}</div>
                             <div><strong>Time:</strong> {reservation.time}</div>
                             <div><strong>Number of Guests:</strong> {reservation.number_of_guests}</div>
                             <button onClick={() => handleDelete(reservation.id)}>Delete</button>
-                            <button onClick={() => handleEdit(reservation)}>Edit</button>
-                        </li>
+                            <button onClick={() => handleEdit(reservation)}>Edit</button><br></br>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
             {!staff && (
-                <Link to="/reservations">Create Another Reservation</Link>
+                <Link className="link-to-form" to="/reservations">Create Another Reservation</Link>
             )}
         </div>
         <Background />

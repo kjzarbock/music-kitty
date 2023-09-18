@@ -4,6 +4,10 @@ import { getLocations } from '../../managers/LocationManager';
 import { Link } from 'react-router-dom';
 import { ReservationList } from './ReservationList';
 import { Background } from '../background/Background';
+import './ReservationForm.css'
+
+
+
 
 export const ReservationForm = () => {
     const [locations, setLocations] = useState([]);
@@ -126,16 +130,12 @@ Number of Guests: ${numberOfGuests}
     } else {
         return (
             <>
-            <div>
+            <div className="reservation-container">
                 <h2>Create Reservation</h2>
-                <form onSubmit={handleSubmit}>
+                <form className="reservation-form" onSubmit={handleSubmit}>
                     <div>
                         <label>Location:</label>
-                        <select 
-                            value={location} 
-                            onChange={(e) => setLocation(e.target.value)}
-                            required
-                        >
+                        <select className="form-select" value={location} onChange={(e) => setLocation(e.target.value)} required>
                             <option value="">Select a Location</option>
                             {locations.map(loc => (
                                 <option key={loc.id} value={loc.id}>{loc.name}</option>
@@ -144,20 +144,11 @@ Number of Guests: ${numberOfGuests}
                     </div>
                     <div>
                         <label>Date:</label>
-                        <input 
-                            type="date" 
-                            value={reservationDate} 
-                            onChange={(e) => setReservationDate(e.target.value)} 
-                            required 
-                        />
+                        <input className="form-input" type="date" value={reservationDate} onChange={(e) => setReservationDate(e.target.value)} required />
                     </div>
                     <div>
                         <label>Time:</label>
-                        <select
-                            value={reservationTime}
-                            onChange={(e) => setReservationTime(e.target.value)}
-                            required
-                        >
+                        <select className="form-select" value={reservationTime} onChange={(e) => setReservationTime(e.target.value)} required>
                             {timeSlots.map(slot => (
                                 <option key={slot} value={slot}>{slot}</option>
                             ))}
@@ -165,12 +156,7 @@ Number of Guests: ${numberOfGuests}
                     </div>
                     <div>
                         <label>Number of Guests:</label>
-                        <input 
-                            type="number" 
-                            value={numberOfGuests} 
-                            onChange={(e) => setNumberOfGuests(e.target.value)} 
-                            required 
-                        />
+                        <input className="form-input" type="number" value={numberOfGuests} onChange={(e) => setNumberOfGuests(e.target.value)} required />
                     </div>
                     <div>
                         <button type="submit">Create Reservation</button>
@@ -183,5 +169,5 @@ Number of Guests: ${numberOfGuests}
             <Background />
             </>
         );
-    }
-};
+    };
+}

@@ -28,22 +28,28 @@ export const ProductList = () => {
     const isStaff = user && user.staff; // Check if the user is staff
 
     const handleDeleteProduct = (productId) => {
-        // Call deleteProduct to delete the product by ID
-        deleteProduct(productId)
-            .then(() => {
-                // If deletion is successful, refresh the product list
-                getProducts()
-                    .then(data => {
-                        setProducts(data);
-                    })
-                    .catch(error => {
-                        setError(error.message);
-                    });
-            })
-            .catch(error => {
-                console.error("Error deleting product:", error);
-            });
+        // Show a confirmation dialog
+        const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+        
+        if (confirmDelete) {
+            // Call deleteProduct to delete the product by ID
+            deleteProduct(productId)
+                .then(() => {
+                    // If deletion is successful, refresh the product list
+                    getProducts()
+                        .then(data => {
+                            setProducts(data);
+                        })
+                        .catch(error => {
+                            setError(error.message);
+                        });
+                })
+                .catch(error => {
+                    console.error("Error deleting product:", error);
+                });
+        }
     };
+    
 
     return (
         <>
