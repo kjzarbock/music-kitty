@@ -4,6 +4,8 @@
 
 Welcome to Music Kitty, an app designed for a cat cafe in Nashville. This app serves as a one-stop solution for both customers and staff. Customers can view locations, learn about the cats, browse products, make reservations, and even request adoptions. Staff members can manage cats, products, reservations, and adoption requests.  
 
+- Server-side code for this project is located here: https://github.com/kjzarbock/music-kitty-server
+
 - Wire-frame: https://www.canva.com/design/DAFtmjmMwHs/klRHxMsWHYmLlczT7DJsXw/edit
 
 - ERD: https://www.canva.com/design/DAFtmjmMwHs/klRHxMsWHYmLlczT7DJsXw/edit
@@ -27,7 +29,6 @@ Welcome to Music Kitty, an app designed for a cat cafe in Nashville. This app se
 1. Clone the repository: git clone https://github.com/kjzarbock/music-kitty.git
 2. Navigate to the project directory: cd music-kitty
 3. Install the dependencies: npm install
-4. Server-side code for this project is located here: https://github.com/kjzarbock/music-kitty-server
 
 
 ## Running the App
