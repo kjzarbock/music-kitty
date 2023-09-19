@@ -12,7 +12,7 @@ export const AdoptionForm = () => {
   const initialFormData = {
     cat_id: '',
     adoption_date: '',
-    status: 'pending'
+    status: 'Pending'
   };
   const [formData, setFormData] = useState(initialFormData);
   const [cats, setCats] = useState([]);
@@ -31,21 +31,18 @@ export const AdoptionForm = () => {
         console.error("Failed to fetch locations:", error);
       });
 
-    // Fetch user info (You may need to replace this with your own user fetching logic)
     const localUser = JSON.parse(localStorage.getItem("kitty_user"));
     setUserInfo(localUser);
     setLoadingUserInfo(false);
   }, []);
 
   useEffect(() => {
-    // Fetch user info (You may need to replace this with your own user fetching logic)
     const localUser = JSON.parse(localStorage.getItem("kitty_user"));
     setUserInfo(localUser);
     console.log("User Info:", localUser); // Add this line to log userInfo
     setLoadingUserInfo(false);
   }, []);
   
-
   useEffect(() => {
     const cat = cats.find((cat) => cat.id === parseInt(formData.cat_id));
     setSelectedCat(cat);
@@ -78,7 +75,13 @@ export const AdoptionForm = () => {
       .then(() => {
         const selectedCatName = selectedCat ? selectedCat.name : 'Unknown Cat';
         const selectedLocationName = locations.find(location => location.name === selectedLocation)?.name || 'Unknown Location';
-        alert(`Adoption request for ${selectedCatName} submitted successfully! You must make a reservation at ${selectedLocationName} to be approved to adopt by a staff member.`);
+        alert(`       😺Adoption request for ${selectedCatName} submitted successfully! 
+        
+        📆You must make a reservation at ${selectedLocationName} to be 
+        approved to adopt by a staff member.  
+
+        ✅Please check back here for your approval status 5-7 days after 
+        meeting with a staff member.`);
         setSubmittedCats(new Set([...submittedCats, formData.cat_id]));
         setFormData(initialFormData); // Clear the form after submission
       })
@@ -175,4 +178,4 @@ export const AdoptionForm = () => {
       <Background />
     </>
   );
-};
+};   

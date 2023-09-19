@@ -49,10 +49,17 @@ export const deleteAdoption = (adoptionId) => {
         headers: getAuthHeaders()
     })
     .then((response) => {
+        if (response.status === 204) {
+            // Deletion was successful, no JSON response
+            return;
+        }
         if (response.ok) {
             return response.json();
         } else {
             throw new Error("Failed to delete adoption.");
         }
+    })
+    .catch((error) => {
+        console.error("Error deleting adoption:", error);
     });
 }

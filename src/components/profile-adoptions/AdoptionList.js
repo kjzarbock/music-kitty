@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
 import { Link } from 'react-router-dom';
+import { getAdoptions, deleteAdoption } from '../../managers/ProfileAdoptionManager';
 
 export const AdoptionList = () => {
     const [adoptions, setAdoptions] = useState([]);
@@ -10,8 +11,7 @@ export const AdoptionList = () => {
     const [editingAdoption, setEditingAdoption] = useState(null);
     const [title, setTitle] = useState("My Adoptions");
     const [searchQuery, setSearchQuery] = useState("");
-    const [editedApprovalStatus, setEditedApprovalStatus] = useState(""); // New state variable
-
+    const [editedApprovalStatus, setEditedApprovalStatus] = useState("");
     const localUser = JSON.parse(localStorage.getItem("kitty_user"));
     const staff = localUser?.staff;
 
@@ -23,35 +23,15 @@ export const AdoptionList = () => {
 
     useEffect(() => {
         fetchAdoptions();
-    }, []);
-
-    useEffect(() => {
         getLocations().then(setLocations);
     }, []);
 
     const fetchAdoptions = () => {
-        const localUser = JSON.parse(localStorage.getItem("kitty_user"));
-        const token = localUser?.token;
-        let endpoint = 'http://localhost:8000/profile-adoptions';
-
-        if (staff) {
-            endpoint = 'http://localhost:8000/profile-adoptions';
-        }
-
-        if (token) {
-            fetch(endpoint, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Token ${token}`,
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(res => res.json())
+        getAdoptions()
             .then(setAdoptions)
             .catch(error => {
                 console.error("Error fetching adoptions:", error);
             });
-        }
     };
 
     const handleSearch = (e) => {
@@ -68,31 +48,21 @@ export const AdoptionList = () => {
     const handleDelete = (adoptionId) => {
         const shouldDelete = window.confirm("Are you sure you want to delete this adoption?");
         if (!shouldDelete) return;
-
-        const localUser = JSON.parse(localStorage.getItem("kitty_user"));
-        const token = localUser?.token;
-
-        if (token) {
-            fetch(`http://localhost:8000/profile-adoptions/${adoptionId}`, {
-                method: "DELETE",
-                headers: {
-                    "Authorization": `Token ${token}`,
-                    "Content-Type": "application/json"
-                }
-            })
-            .then(() => {
+    
+        deleteAdoption(adoptionId)
+            .then((response) => {
+                console.log("Delete response:", response);
                 setAdoptions(prevAdoptions => prevAdoptions.filter(adoption => adoption.id !== adoptionId));
             })
             .catch(error => {
                 console.error("Error deleting adoption:", error);
             });
-        }
     };
-
+    
     const handleEdit = (adoption) => {
         setIsEditing(true);
-        setEditingAdoption(adoption);
-        setEditedApprovalStatus(adoption.profile.approved_to_adopt ? "Yes" : "No"); // Initialize editedApprovalStatus
+        setEditingAdoption({ ...adoption });
+        setEditedApprovalStatus(adoption.status);
     };
 
     const handleSave = () => {
@@ -100,21 +70,21 @@ export const AdoptionList = () => {
         const token = localUser?.token;
 
         if (token) {
-            // Update the approval status in the editingAdoption object
-            editingAdoption.profile.approved_to_adopt = editedApprovalStatus === "Yes";
+            const clonedAdoption = { ...editingAdoption };
+            clonedAdoption.status = editedApprovalStatus; // Adjust this to match your server expectations
 
-            fetch(`http://localhost:8000/profile-adoptions/${editingAdoption.id}`, {
+            fetch(`http://localhost:8000/profile-adoptions/${clonedAdoption.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Token ${token}`,
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(editingAdoption)
+                body: JSON.stringify(clonedAdoption)
             })
             .then(() => {
                 setAdoptions(prevAdoptions => prevAdoptions.map(adoption => {
-                    if (adoption.id === editingAdoption.id) {
-                        return editingAdoption;
+                    if (adoption.id === clonedAdoption.id) {
+                        return clonedAdoption;
                     }
                     return adoption;
                 }));
@@ -126,7 +96,7 @@ export const AdoptionList = () => {
             });
         }
     };
-
+    
     return (
         <>
         <div>
@@ -147,8 +117,9 @@ export const AdoptionList = () => {
                             value={editedApprovalStatus}
                             onChange={(e) => setEditedApprovalStatus(e.target.value)}
                         >
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
+                            <option value="Denied">Denied</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Approved">Approved</option>
                         </select>
                     </div>
                     {staff && <button onClick={handleSave}>Save</button>}
