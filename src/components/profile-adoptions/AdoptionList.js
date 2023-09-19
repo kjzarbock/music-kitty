@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
+import { Link } from 'react-router-dom';
 
 export const AdoptionList = () => {
     const [adoptions, setAdoptions] = useState([]);
@@ -9,6 +10,7 @@ export const AdoptionList = () => {
     const [editingAdoption, setEditingAdoption] = useState(null);
     const [title, setTitle] = useState("My Adoptions");
     const [searchQuery, setSearchQuery] = useState("");
+    const [editedApprovalStatus, setEditedApprovalStatus] = useState(""); // New state variable
 
     const localUser = JSON.parse(localStorage.getItem("kitty_user"));
     const staff = localUser?.staff;
@@ -31,11 +33,11 @@ export const AdoptionList = () => {
         const localUser = JSON.parse(localStorage.getItem("kitty_user"));
         const token = localUser?.token;
         let endpoint = 'http://localhost:8000/profile-adoptions';
-    
+
         if (staff) {
             endpoint = 'http://localhost:8000/profile-adoptions';
         }
-    
+
         if (token) {
             fetch(endpoint, {
                 method: "GET",
@@ -62,7 +64,6 @@ export const AdoptionList = () => {
         const locationName = adoption.cat.location.name.toLowerCase();
         return adopterName.includes(searchQuery) || catName.includes(searchQuery) || locationName.includes(searchQuery);
     });
-    
 
     const handleDelete = (adoptionId) => {
         const shouldDelete = window.confirm("Are you sure you want to delete this adoption?");
@@ -72,7 +73,7 @@ export const AdoptionList = () => {
         const token = localUser?.token;
 
         if (token) {
-            fetch(`http://localhost:8000/adoptions/${adoptionId}`, {
+            fetch(`http://localhost:8000/profile-adoptions/${adoptionId}`, {
                 method: "DELETE",
                 headers: {
                     "Authorization": `Token ${token}`,
@@ -91,6 +92,7 @@ export const AdoptionList = () => {
     const handleEdit = (adoption) => {
         setIsEditing(true);
         setEditingAdoption(adoption);
+        setEditedApprovalStatus(adoption.profile.approved_to_adopt ? "Yes" : "No"); // Initialize editedApprovalStatus
     };
 
     const handleSave = () => {
@@ -98,7 +100,10 @@ export const AdoptionList = () => {
         const token = localUser?.token;
 
         if (token) {
-            fetch(`http://localhost:8000/adoptions/${editingAdoption.id}`, {
+            // Update the approval status in the editingAdoption object
+            editingAdoption.profile.approved_to_adopt = editedApprovalStatus === "Yes";
+
+            fetch(`http://localhost:8000/profile-adoptions/${editingAdoption.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Token ${token}`,
@@ -135,24 +140,40 @@ export const AdoptionList = () => {
             {isEditing ? (
                 <div>
                     <h3>Edit Adoption</h3>
-                    {/* Add your editing form fields here */}
-                    <button onClick={handleSave}>Save</button>
+                    <div>
+                        <label htmlFor="approvalStatus">Approval Status:</label>
+                        <select
+                            id="approvalStatus"
+                            value={editedApprovalStatus}
+                            onChange={(e) => setEditedApprovalStatus(e.target.value)}
+                        >
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+                    {staff && <button onClick={handleSave}>Save</button>}
                 </div>
             ) : (
                 <ul>
                     {filteredAdoptions.map(adoption => (
                         <li key={adoption.id}>
-                            <div><strong>Adopter Name:</strong> {adoption.profile.user.first_name} {adoption.profile.user.last_name}</div>
+                            <div><strong>Adopter Name:</strong> <a href={`/profiles/${adoption.profile.user.id}`}>{adoption.profile.user.first_name} {adoption.profile.user.last_name}</a></div>
                             <div><strong>Approved to Adopt:</strong> {adoption.profile.approved_to_adopt ? "Yes" : "No"}</div>
-                            <div><strong>Cat:</strong> {adoption.cat.name}</div>
+                            <div><strong>Cat:</strong> <a href={`/cats/${adoption.cat.id}`}>{adoption.cat.name}</a></div>
                             <div><strong>Location:</strong> {adoption.cat.location.name}</div>
                             <div><strong>Adoption Date:</strong> {adoption.adoption_date}</div>
                             <div><strong>Status:</strong> {adoption.status}</div>
-                            <button onClick={() => handleDelete(adoption.id)}>Delete</button>
-                            <button onClick={() => handleEdit(adoption)}>Edit</button>
+                            {staff && <button onClick={() => handleDelete(adoption.id)}>Delete</button>}
+                            {!staff && <button onClick={() => handleDelete(adoption.id)}>Delete</button>}
+                            {staff && <button onClick={() => handleEdit(adoption)}>Edit</button>}
                         </li>
                     ))}
                 </ul>
+            )}
+            {!staff && (
+                <div>
+                    <Link to="/profile-adoptions">Create another adoption Request!</Link>
+                </div>
             )}
         </div>
         <Background />

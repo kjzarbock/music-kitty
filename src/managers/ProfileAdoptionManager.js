@@ -42,3 +42,17 @@ export const createAdoption = (newAdoption) => {
         }
     });
 }
+
+export const deleteAdoption = (adoptionId) => {
+    return fetch(`http://localhost:8000/profile-adoptions/${adoptionId}`, {
+        method: "DELETE",
+        headers: getAuthHeaders()
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error("Failed to delete adoption.");
+        }
+    });
+}

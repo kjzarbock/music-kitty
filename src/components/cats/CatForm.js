@@ -49,50 +49,51 @@ export const CatForm = ({ onCatAdded }) => {
     });
   };
 
-
   return (
     <>
-    <h1>Add a Cat</h1>
-    <form onSubmit={handleSubmit} className="cat-form">
-        <select name="location" onChange={handleChange}>
-            <option value="" disabled defaultValue>Select Location</option>
-            {locations.map(location => (
-                <option key={location.id} value={location.id}>
-                {location.name}
-                </option>
-            ))}
-            </select>
-      <input type="text" name="name" placeholder="Name" onChange={handleChange} value={newCat.name} />
-      <input type="text" name="image" placeholder="Image URL" onChange={handleChange} value={newCat.image} />
-      <input type="number" name="age" placeholder="Age" onChange={handleChange} value={newCat.age} />
-      <input type="text" name="sex" placeholder="Sex" onChange={handleChange} value={newCat.sex} />
-      <textarea name="bio" placeholder="Bio" onChange={handleChange} value={newCat.bio}></textarea>
-      <input
-        type="checkbox"
-        name="adopted"
-        checked={newCat.adopted}
-        onChange={handleChange}
-      /> Adopted
-      <input
-        type="checkbox"
-        name="gets_along_with_cats"
-        checked={newCat.gets_along_with_cats}
-        onChange={handleChange}
-      /> Gets along with cats
-      <input
-        type="checkbox"
-        name="gets_along_with_dogs"
-        checked={newCat.gets_along_with_dogs}
-        onChange={handleChange}
-      /> Gets along with dogs
-      <input
-        type="checkbox"
-        name="gets_along_with_children"
-        checked={newCat.gets_along_with_children}
-        onChange={handleChange}
-      /> Gets along with children
-      <button type="submit">Add Cat</button>
-    </form>
+      <h1>Add a Cat</h1>
+      <form onSubmit={handleSubmit} className="cat-form">
+        <select name="location" onChange={handleChange} value={newCat.location}>
+          <option value="" disabled>Select Location</option>
+          {locations.map(location => (
+            <option key={location.id} value={location.id}>
+              {location.name}
+            </option>
+          ))}
+        </select>
+
+        {/* Rest of the form */}
+        <input type="text" name="name" placeholder="Name" onChange={handleChange} value={newCat.name} />
+        <input type="text" name="image" placeholder="Image URL" onChange={handleChange} value={newCat.image} />
+        <input type="number" name="age" placeholder="Age" onChange={handleChange} value={newCat.age} />
+        <input type="text" name="sex" placeholder="Sex" onChange={handleChange} value={newCat.sex} />
+        <textarea name="bio" placeholder="Bio" onChange={handleChange} value={newCat.bio}></textarea>
+        <input
+          type="checkbox"
+          name="adopted"
+          checked={newCat.adopted}
+          onChange={handleChange}
+        /> Adopted
+        <input
+          type="checkbox"
+          name="gets_along_with_cats"
+          checked={newCat.gets_along_with_cats}
+          onChange={handleChange}
+        /> Gets along with cats
+        <input
+          type="checkbox"
+          name="gets_along_with_dogs"
+          checked={newCat.gets_along_with_dogs}
+          onChange={handleChange}
+        /> Gets along with dogs
+        <input
+          type="checkbox"
+          name="gets_along_with_children"
+          checked={newCat.gets_along_with_children}
+          onChange={handleChange}
+        /> Gets along with children
+        <button type="submit">Add Cat</button>
+      </form>
     </>
   );
 };

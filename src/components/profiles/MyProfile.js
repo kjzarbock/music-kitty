@@ -105,7 +105,8 @@ export const MyProfile = () => {
               <button onClick={handleEditClick}>Edit</button> {/* Show the "Edit" button */}
             </div>
           )}
-          <Link to="/" className="location-profile-button">Back to Home</Link>
+          {!user.is_staff ? <Link to="/" className="location-profile-button">Back to home</Link> : null}
+          {user.is_staff ? <Link to="/profiles" className="location-profile-button">View Profiles</Link> : null}
         </div>
       </div>
     </div>

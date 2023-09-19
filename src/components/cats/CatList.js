@@ -42,7 +42,7 @@ export const CatList = () => {
     <>
       <div>
         {user && user.staff ? <CatForm onCatAdded={handleCatAdded} /> : null} 
-        <h2>List of Cats</h2>
+        <h2>All of Our Music Kitty Cats!</h2>
         <input
           type="text"
           placeholder="Search by name or location"
