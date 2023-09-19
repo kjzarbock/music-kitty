@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getProfiles } from '../../managers/ProfileManager';
 import { Link } from 'react-router-dom';
-import './Profiles.css'; // Import your CSS file for styling
 import { MyProfile } from './MyProfile';
 import { Background } from '../background/Background';
 
@@ -53,8 +52,8 @@ export const ProfileList = () => {
               {filteredProfiles.map(({ user, image, bio, has_cats, has_dogs, has_children, approved_to_adopt }) => (
                 <li key={user.id} className="profile-list-item">
                   <div className="profile-item-content">
-                    <img src={image} alt={`Profile of ${user.first_name}`} className="profile-image" />
                     <div className="profile-details">
+                    <img src={image} alt={`Profile of ${user.first_name}`} className="profile-image" />
                       <div className="profile-name">{user.first_name} {user.last_name}</div>
                       <div className="profile-email">Email: {user.email}</div>
                       <div className="profile-username">Username: {user.username}</div>

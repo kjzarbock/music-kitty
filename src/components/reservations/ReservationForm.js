@@ -9,7 +9,7 @@ export const ReservationForm = () => {
     const [locations, setLocations] = useState([]);
     const [location, setLocation] = useState('');
     const [reservationDate, setReservationDate] = useState('');
-    const [reservationTime, setReservationTime] = useState('11:00'); // Initialize to the earliest time
+    const [reservationTime, setReservationTime] = useState('11:00'); 
     const [numberOfGuests, setNumberOfGuests] = useState('');
     const [userInfo, setUserInfo] = useState(null);
     const [loadingUserInfo, setLoadingUserInfo] = useState(true);
@@ -30,22 +30,21 @@ export const ReservationForm = () => {
             })
             .then(res => res.json())
             .then(data => {
-                console.log("Fetched user data:", data);  // Log the fetched data
+                console.log("Fetched user data:", data);  
                 setUserInfo(data);
                 setLoadingUserInfo(false);
             })
             .catch(error => {
                 console.error("Error fetching user information:", error);
-                setUserInfo(localUser);  // Use local storage data if fetch fails
+                setUserInfo(localUser);  
                 setLoadingUserInfo(false);
             });
         } else {
-            setUserInfo(localUser);  // Use local storage data if no token
+            setUserInfo(localUser);  
             setLoadingUserInfo(false);
         }
     }, []);
 
-    // Function to convert 12-hour time to 24-hour time
     const convertTo24HourFormat = (time12Hour) => {
         const [time, modifier] = time12Hour.split(' ');
         let [hours, minutes] = time.split(':');
@@ -61,17 +60,16 @@ export const ReservationForm = () => {
         return `${hours}:${minutes}`;
     };
 
-    // Generate an array of time slots between 11:00 AM and 8:00 PM
     const timeSlots = [];
     let currentTime = new Date();
-    currentTime.setHours(11, 0, 0, 0); // Start at 11:00 AM
+    currentTime.setHours(11, 0, 0, 0); 
     const endTime = new Date();
-    endTime.setHours(20, 0, 0, 0); // End at 8:00 PM
+    endTime.setHours(20, 0, 0, 0); 
 
     while (currentTime <= endTime) {
         const formattedTime = currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         timeSlots.push(formattedTime);
-        currentTime.setMinutes(currentTime.getMinutes() + 30); // Add 30 minutes
+        currentTime.setMinutes(currentTime.getMinutes() + 30); 
     }
 
     const handleSubmit = (e) => {
@@ -91,7 +89,7 @@ export const ReservationForm = () => {
             profile: userId,
             location: parseInt(location, 10),
             date: reservationDate,
-            time: convertTo24HourFormat(reservationTime), // Convert to 24-hour format
+            time: convertTo24HourFormat(reservationTime),
             number_of_guests: parseInt(numberOfGuests, 10)
         };
 
@@ -99,17 +97,15 @@ export const ReservationForm = () => {
 
         createReservation(newReservation)
             .then(() => {
-                // Handle success
                 window.alert(`Reservation made successfully!
 Location: ${locations.find(loc => loc.id === parseInt(location, 10))?.name}
 Date: ${reservationDate}
 Time: ${reservationTime}
 Number of Guests: ${numberOfGuests}
                 `);
-                // Reset the form fields
                 setLocation('');
                 setReservationDate('');
-                setReservationTime('11:00'); // Reset to the earliest time
+                setReservationTime('11:00'); 
                 setNumberOfGuests('');
             })
             .catch((error) => {

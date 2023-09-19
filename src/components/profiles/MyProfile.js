@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMyProfile, updateMyProfile } from '../../managers/ProfileManager';
 import './Profiles.css';
+import './ProfileDetails.css';
 import { Link } from 'react-router-dom';
 import { Background } from '../background/Background';
 
@@ -72,17 +73,17 @@ export const MyProfile = () => {
 
   return (
     <>
-    <div className="profile-details-container">
+    <div className="profile-details">
       <h1 className="profile-header">Profile Details</h1>
       <div className="profile-content">
         <img src={image} alt={`Profile of ${user.first_name}`} className="profile-image" />
-        <div className="profile-details">
+        <div className="profile">
           <div className="profile-name">{user.first_name} {user.last_name}</div>
           <div className="profile-email">Email: {user.email}</div>
           <div className="profile-username">Username: {user.username}</div>
 
-          {isEditing ? ( // Display the edit form when in edit mode
-            <div>
+          {isEditing ? ( 
+            <div className="form-container">
               <label htmlFor="bio">Bio:</label>
               <input type="text" name="bio" value={formData.bio || ''} onChange={handleInputChange} />
               <label htmlFor="has_cats">Has Cats:</label>

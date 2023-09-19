@@ -94,7 +94,7 @@ export const AdoptionForm = () => {
     <>
       {loadingUserInfo ? (
         <div>Loading user info...</div>
-      ) : userInfo && userInfo.staff ? ( // Render AdoptionList if user is staff
+      ) : userInfo && userInfo.staff ? ( 
         <AdoptionList />
       ) : (
         <div>

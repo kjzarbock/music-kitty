@@ -1,0 +1,26 @@
+.cat-details-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .cat-details {
+    font-size: 20px;
+    padding: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: white; /* Changing text color to white for better visibility */
+  }
+  
+  .user-list-name, .cat-list-name, .cat-list-location {
+    font-weight: bold;
+  }
+  
+  .cat-list-location,
+  .cat-list-name {
+    margin-bottom: 0.5rem;
+  }
+  
