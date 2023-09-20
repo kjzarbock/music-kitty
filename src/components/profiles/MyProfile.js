@@ -103,7 +103,7 @@ export const MyProfile = () => {
               <div className="profile-has-dogs">Has Dogs: {has_dogs ? 'Yes' : 'No'}</div>
               <div className="profile-has-children">Has Children: {has_children ? 'Yes' : 'No'}</div>
               <div className="profile-approved">Approved to Adopt: {profile.approved_to_adopt ? 'Yes' : 'No'}</div>
-              <button onClick={handleEditClick}>Edit</button> {/* Show the "Edit" button */}
+              <button className="profile-edit" onClick={handleEditClick}>Edit</button> {/* Show the "Edit" button */}
             </div>
           )}
           {!user.is_staff ? <Link to="/" className="location-profile-button">Back to home</Link> : null}
