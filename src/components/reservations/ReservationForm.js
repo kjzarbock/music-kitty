@@ -45,6 +45,8 @@ export const ReservationForm = () => {
         }
     }, []);
 
+    
+
     const convertTo24HourFormat = (time12Hour) => {
         const [time, modifier] = time12Hour.split(' ');
         let [hours, minutes] = time.split(':');
