@@ -182,7 +182,7 @@ export const ReservationList = () => {
     return (
         <>
         <div>
-            <h2>{title}</h2>
+            <h2 className='centered-container'>{title}</h2>
             {isEditing ? (
                 <div className="reservation-details-edit">
                     <h3>Edit Reservation</h3>
@@ -212,9 +212,12 @@ export const ReservationList = () => {
                     ))}
                 </div>
             )}
-            {!staff && (
-                <Link className="link-to-form" to="/reservations">Create Another Reservation</Link>
-            )}
+<div className="centered-container">
+    {!staff && (
+        <Link className="link-to-form" to="/reservations">Create Another Reservation</Link>
+    )}
+</div>
+
         </div>
         <Background />
         </>

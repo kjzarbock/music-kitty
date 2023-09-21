@@ -60,8 +60,8 @@ export const ProductList = () => {
                 <ul className="product-list">
                     {products.map(product => (
                         <li key={product.id} className="product-list-item">
-                            <img src={product.image} alt={product.description} />
                             <div className="product-description">{product.description}</div>
+                            <img src={product.image} alt={product.description} />
                             <div className="product-price">${product.price.toFixed(2)}</div>
                             {product.locations.length > 0 && (
                                 <div className="product-available-locations">

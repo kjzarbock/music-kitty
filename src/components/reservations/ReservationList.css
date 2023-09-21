@@ -25,5 +25,11 @@
     margin-bottom: 0.5rem;
   }
 
-  
-  
+  .centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center both horizontally and vertically */
+    text-align: center; /* Center the text horizontally */
+    height: 50v; /* Set the container height to the viewport height */
+}

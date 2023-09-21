@@ -42,7 +42,7 @@ export const CatDetails = ({ catId: catIdProp }) => {
     <>
       <section className='post cat-details-container'>
         <div className='cat-details'>
-          <div className='user-list-name'>Name: {cat.name}</div>
+          <div className='cat-name' style={{ fontWeight: 'bold' }}>{cat.name}</div>
           <img src={cat.image} alt={cat.name} />
           <div className='cat-list-location'>
             Location: {cat.location && <Link to={`/locations/${cat.location.id}`}>{cat.location.name}</Link>}
