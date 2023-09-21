@@ -30,7 +30,7 @@ export const ProductList = () => {
     const handleDeleteProduct = (productId) => {
         // Show a confirmation dialog
         const confirmDelete = window.confirm("Are you sure you want to delete this product?");
-        
+               
         if (confirmDelete) {
             // Call deleteProduct to delete the product by ID
             deleteProduct(productId)
