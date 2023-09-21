@@ -1,6 +1,7 @@
 .navbar-container {
     position: relative;
-    padding: 10px;
+    padding: 1px; /* Reduced padding */
+    height: 55px;
     background: linear-gradient(to right, #545784, rgba(255, 255, 255, 0.2)); /* Gradient background */
 }
 
@@ -8,7 +9,7 @@
     background: none;
     border: none;
     color: #fff; /* White text */
-    font-size: 24px;
+    font-size: 20px; /* Reduced font size */
     cursor: pointer;
 }
 
@@ -29,16 +30,16 @@
 }
 
 .navbar__item {
-    padding: 10px;
+    padding: 5px; /* Reduced padding */
     border-bottom: 1px solid #555;
 }
 
 .navbar__link {
     text-decoration: none;
     color: #fff;
-    padding: 0.5rem 1rem;
+    padding: 0.25rem 0.5rem; /* Reduced padding */
     display: block;
-    font-size: 18px; /* Increased font size */
+    font-size: 16px; /* Reduced font size */
     transition: transform 0.3s ease; /* Add transition */
 }
 
@@ -48,4 +49,3 @@
     transform: scale(1.1); /* Grow when hovered */
     font-weight: bold;
 }
-

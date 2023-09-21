@@ -44,14 +44,14 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
-  width: 100%;
+  width: 90%;
 }
 
 .cat-details {
   padding: 1rem;
   border: 2px solid rgba(0, 0, 0, 0.2);
   border-radius: 10px;
-  background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
+  background-color: rgba(0,0,0,.2);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: white;
 }

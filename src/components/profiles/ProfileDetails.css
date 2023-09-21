@@ -26,15 +26,15 @@
   font-size: 20px;
   padding: 1rem;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
   color: white;
   margin: auto;
   width: 700px;
+  background-color: rgba(0,0,0,.2);
+  border-radius: 5px;
 }
 
 /* New styles for the form */
 .form-container {
-  background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
   padding: 30px;
   border-radius: 20px;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);

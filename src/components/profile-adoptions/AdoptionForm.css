@@ -1,0 +1,48 @@
+/* AdoptionForm.css */
+
+form {
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    background-color: rgba(0,0,0,.2);
+  }
+  
+  label {
+    display: inline-block;  /* Changed from block to inline-block */
+    margin: 0.2em 0;  /* Reduced margin-bottom */
+    font-weight: bold;
+  }
+  
+  select, input {
+    width: 90%;  /* Reduced to 90% to fit inline with the label */
+    padding: 0.3em;  /* Reduced padding */
+    margin: 0.2em;  /* Reduced margin */
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  button {
+    padding: 0.5em 1em;
+    background-color: #545784;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 0.5em;  /* Added margin-top for spacing */
+  }
+  
+  button:hover {
+    background-color: #969be8;
+  }
+  
+  h2 {
+    margin: 0.5em 0;  /* Reduced margin */
+  }
+  
+  img {
+    max-width: 100%;
+    margin-top: 0.5em;  /* Reduced margin */
+  }
+  

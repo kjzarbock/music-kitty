@@ -3,6 +3,7 @@ import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
 import { Link } from 'react-router-dom';
 import { getAdoptions, deleteAdoption } from '../../managers/ProfileAdoptionManager';
+import './AdoptionList.css';
 
 export const AdoptionList = () => {
     const [adoptions, setAdoptions] = useState([]);
@@ -99,16 +100,17 @@ export const AdoptionList = () => {
     
     return (
         <>
-        <div>
+        <div className="adoption-container">
             <h2>{title}</h2>
             <input
                 type="text"
                 placeholder="Adopter, cat name, location"
                 value={searchQuery}
                 onChange={handleSearch}
+                className="adoption-form input"
             />
             {isEditing ? (
-                <div>
+                <div className="adoption-form">
                     <h3>Edit Adoption</h3>
                     <div>
                         <label htmlFor="approvalStatus">Approval Status:</label>
@@ -116,27 +118,29 @@ export const AdoptionList = () => {
                             id="approvalStatus"
                             value={editedApprovalStatus}
                             onChange={(e) => setEditedApprovalStatus(e.target.value)}
+                            className="adoption-form input"
                         >
                             <option value="Denied">Denied</option>
                             <option value="Pending">Pending</option>
                             <option value="Approved">Approved</option>
                         </select>
                     </div>
-                    {staff && <button onClick={handleSave}>Save</button>}
+                    {staff && <button onClick={handleSave} className="adoption-form button">Save</button>}
                 </div>
             ) : (
                 <ul>
                     {filteredAdoptions.map(adoption => (
-                        <li key={adoption.id}>
+                        <li key={adoption.id} className="adoption-list-item">
+                            {/* Add a class name to each div here if needed, like className="adoption-list-item" */}
                             <div><strong>Adopter Name:</strong> <a href={`/profiles/${adoption.profile.user.id}`}>{adoption.profile.user.first_name} {adoption.profile.user.last_name}</a></div>
                             <div><strong>Approved to Adopt:</strong> {adoption.profile.approved_to_adopt ? "Yes" : "No"}</div>
                             <div><strong>Cat:</strong> <a href={`/cats/${adoption.cat.id}`}>{adoption.cat.name}</a></div>
                             <div><strong>Location:</strong> {adoption.cat.location.name}</div>
                             <div><strong>Adoption Date:</strong> {adoption.adoption_date}</div>
                             <div><strong>Status:</strong> {adoption.status}</div>
-                            {staff && <button onClick={() => handleDelete(adoption.id)}>Delete</button>}
-                            {!staff && <button onClick={() => handleDelete(adoption.id)}>Delete</button>}
-                            {staff && <button onClick={() => handleEdit(adoption)}>Edit</button>}
+                            {staff && <button onClick={() => handleDelete(adoption.id)} className="adoption-form button">Delete</button>}
+                            {!staff && <button onClick={() => handleDelete(adoption.id)} className="adoption-form button">Delete</button>}
+                            {staff && <button onClick={() => handleEdit(adoption)} className="adoption-form button">Edit</button>}
                         </li>
                     ))}
                 </ul>
