@@ -163,7 +163,7 @@ Number of Guests: ${numberOfGuests}
                     </div>
                 </form>
                 <div>
-                    <Link to="/my-reservations">View My Reservations</Link>
+                    <Link to="/my-reservations" className="cat-profile-button">View My Reservations</Link>
                 </div>
             </div>
             <Background />
