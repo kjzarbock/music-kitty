@@ -13,9 +13,9 @@
     margin-bottom: 1rem;
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     color: white;
+    background-color: rgba(0,0,0,.2);
   }
   
   .reservation-form input,
@@ -38,4 +38,5 @@
   .reservation-form button:hover {
     background-color: #ad8dcf;
   }
+  
   

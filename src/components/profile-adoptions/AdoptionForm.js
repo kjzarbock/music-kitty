@@ -4,6 +4,7 @@ import { getCatsByLocation } from '../../managers/CatManager';
 import { getLocations } from '../../managers/LocationManager';
 import { Background } from '../background/Background';
 import { Link } from 'react-router-dom';
+import './AdoptionForm.css';
 
 // Import the AdoptionList component
 import { AdoptionList } from './AdoptionList'; // Update the import path to match your project structure
@@ -79,7 +80,7 @@ export const AdoptionForm = () => {
         
         📆You must make a reservation at ${selectedLocationName} to be 
         approved to adopt by a staff member.  
-
+        
         ✅Please check back here for your approval status 5-7 days after 
         meeting with a staff member.`);
         setSubmittedCats(new Set([...submittedCats, formData.cat_id]));
@@ -92,6 +93,9 @@ export const AdoptionForm = () => {
 
   return (
     <>
+        <div>
+            {!userInfo || !userInfo.staff ? <Link to="/my-adoptions">View My Adoption Requests</Link> : null}
+        </div>
       {loadingUserInfo ? (
         <div>Loading user info...</div>
       ) : userInfo && userInfo.staff ? ( 
@@ -172,9 +176,6 @@ export const AdoptionForm = () => {
           )}
         </div>
       )}
-<div>
-    {!userInfo || !userInfo.staff ? <Link to="/my-adoptions">View My Adoption Requests</Link> : null}
-</div>
       <Background />
     </>
   );

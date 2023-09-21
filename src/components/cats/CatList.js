@@ -60,7 +60,7 @@ export const CatList = () => {
         <div className="cat-grid">
           {filteredCats.map(cat => (
             <div className="cat-details" key={cat.id}>
-              <h3>{cat.name}</h3>
+              <h3 className="cat-name">{cat.name}</h3>
               <img src={cat.image} alt={cat.name} className="cat-image"/>
               <p>Location: {cat.location && <Link to={`/locations/${cat.location.id}`}>{cat.location.name}</Link>}</p>
               <p>Age: {cat.age}</p>

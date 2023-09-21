@@ -16,7 +16,7 @@
     padding: 1rem;
     border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    background: linear-gradient(to bottom right, rgb(138, 125, 209), rgb(172, 159, 236));
+    background-color: rgba(0, 0, 0, 0.2);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     color: white;
     margin: 0.5rem; /* Spacing between items */
@@ -24,12 +24,13 @@
   }
   
   .location-profile-button {
-    background-color: white;
-    color: black;
-    padding: 0.2rem 0.5rem;
-    font-size: 0.8rem;
-    border-radius: 5px;
-    text-decoration: none;
-    width: auto;
+    cursor: pointer;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     display: inline-block;
+    margin-bottom: 20px;
+    background-color: rgba(0,0,0,.2);
+    color: white;
   }

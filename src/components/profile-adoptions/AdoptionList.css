@@ -1,0 +1,59 @@
+.adoption-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .adoption-form {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: calc(30% - 20px);
+    display: inline-block;
+    margin-bottom: 20px;
+    background-color: rgba(0,0,0,.2);
+    color: white;
+  }
+  
+  .adoption-form input,
+  .adoption-form select,
+  .adoption-form button {
+    display: block;
+    margin: 5px 0;
+    padding: 5px;
+    width: calc(100% - 12px);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .adoption-form button {
+    background-color: #705c86;
+    color: white;
+    cursor: pointer;
+    text-align: center;  
+    display: flex;  /* New */
+    justify-content: center;  /* New */
+    align-items: center;  /* New */
+  }
+  
+  
+  .adoption-form button:hover {
+    background-color: #ad8dcf;
+  }
+
+  .adoption-list-item {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: rgba(0,0,0,.2);
+    width: 400px;
+  }
+  
+  .adoption-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  
