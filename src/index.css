@@ -15,9 +15,14 @@ code {
 
 a {
   color: #ffffff; /* Make links white */
-  text-decoration: underline; /* Remove underline */
+  font-size: 16px;
 }
 
 a:hover {
   color: #b19cd9; /* Change to light purple when hovered */
+}
+
+button { 
+  margin: 2px;
+  font-size: 16px;
 }

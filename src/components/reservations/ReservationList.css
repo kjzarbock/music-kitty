@@ -33,3 +33,7 @@
     text-align: center; /* Center the text horizontally */
     height: 50v; /* Set the container height to the viewport height */
 }
+
+button{
+  border: 1px white;
+}
