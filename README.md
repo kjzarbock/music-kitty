@@ -37,6 +37,14 @@ Welcome to Music Kitty, an app designed for a cat cafe in Nashville. This app se
 
 2. Open your browser and navigate to `http://localhost:3000`.
 
+3. Sample log-in for staff ***Demonstrative purposes only***:
+ - username: admin
+ - password: musickitty
+
+4. Sample log-in for user ***Demonstrative purposes only***:
+- username: jimmy
+- password: musickitty
+
 ## Contributing
 
 If you'd like to contribute, please fork the repository and make changes as you'd like. Pull requests are warmly welcome.
