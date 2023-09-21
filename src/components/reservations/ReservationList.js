@@ -212,7 +212,7 @@ export const ReservationList = () => {
                     ))}
                 </div>
             )}
-<div className="centered-container">
+<div className="link-to-form cat-profile-button">
     {!staff && (
         <Link className="link-to-form" to="/reservations">Create Another Reservation</Link>
     )}

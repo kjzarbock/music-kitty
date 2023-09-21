@@ -42,11 +42,8 @@ export const CatDetails = ({ catId: catIdProp }) => {
     <>
       <section className='post cat-details-container'>
         <div className='cat-details'>
-          <div className='cat-name' style={{ fontWeight: 'bold' }}>{cat.name}</div>
-          <img src={cat.image} alt={cat.name} />
-          <div className='cat-list-location'>
-            Location: {cat.location && <Link to={`/locations/${cat.location.id}`}>{cat.location.name}</Link>}
-          </div>
+          <div className='user-list-name'>Name: {cat.name}</div>
+          <img src={cat.image} alt={cat.name} /><br></br>
           <div className='cat-list-name'>Age: {cat.age}</div>
           <div className='cat-list-name'>Sex: {cat.sex}</div>
           <div className='cat-list-name'>Bio: {cat.bio}</div>
@@ -54,6 +51,9 @@ export const CatDetails = ({ catId: catIdProp }) => {
           <div>Gets along with cats: {cat.gets_along_with_cats ? 'Yes' : 'No'}</div>
           <div>Gets along with dogs: {cat.gets_along_with_dogs ? 'Yes' : 'No'}</div>
           <div>Gets along with children: {cat.gets_along_with_children ? 'Yes' : 'No'}</div>
+          <div className='cat-profile-button'>
+            {cat.location && <Link to={`/locations/${cat.location.id}`}>Back to {cat.location.name}</Link>}
+          </div><br></br>
           
           {user && user.staff && (
             <div>

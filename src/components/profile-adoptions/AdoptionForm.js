@@ -94,7 +94,7 @@ export const AdoptionForm = () => {
   return (
     <>
         <div>
-            {!userInfo || !userInfo.staff ? <Link to="/my-adoptions">View My Adoption Requests</Link> : null}
+            {!userInfo || !userInfo.staff ? <Link to="/my-adoptions" className="cat-profile-button">View My Adoption Requests</Link> : null}
         </div>
       {loadingUserInfo ? (
         <div>Loading user info...</div>

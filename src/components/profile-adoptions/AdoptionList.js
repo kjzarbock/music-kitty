@@ -129,6 +129,11 @@ export const AdoptionList = () => {
                 </div>
             ) : (
                 <ul>
+                    {!staff && (
+                        <div>
+                            <Link to="/profile-adoptions" className="cat-profile-button">Create another adoption Request!</Link>
+                        </div>
+                    )}
                     {filteredAdoptions.map(adoption => (
                         <li key={adoption.id} className="adoption-list-item">
                             {/* Add a class name to each div here if needed, like className="adoption-list-item" */}
@@ -144,11 +149,6 @@ export const AdoptionList = () => {
                         </li>
                     ))}
                 </ul>
-            )}
-            {!staff && (
-                <div>
-                    <Link to="/profile-adoptions">Create another adoption Request!</Link>
-                </div>
             )}
         </div>
         <Background />

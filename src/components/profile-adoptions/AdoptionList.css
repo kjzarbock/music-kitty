@@ -56,4 +56,11 @@
     padding: 0;
   }
   
-  
+  .adoption-form .input {
+    color: white;
+  }
+
+.input::placeholder {  
+    color: white;
+    opacity: 2; 
+  }
